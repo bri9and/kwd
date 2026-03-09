@@ -314,7 +314,7 @@ export default function Home() {
 
           <motion.h1
             variants={fadeUp}
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-cream leading-[1.05] mb-8"
+            className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-cream leading-[1.05] mb-8"
           >
             Your website
             <br />
@@ -352,7 +352,7 @@ export default function Home() {
 
           <motion.div
             variants={fadeUp}
-            className="mt-16 flex items-center justify-center gap-8 text-cream/40 text-sm"
+            className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-cream/40 text-sm"
           >
             <div className="flex items-center gap-2">
               <Monitor className="h-4 w-4" />
