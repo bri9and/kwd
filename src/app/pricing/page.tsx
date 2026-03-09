@@ -102,8 +102,6 @@ const addons = [
   { name: "Drone Video (30–60s promo)", price: "$500–$1,500" },
   { name: "Golf Course Flyover (per hole)", price: "$150–$350" },
   { name: "Full 18-Hole Flyover Package", price: "$2,700–$5,000" },
-  { name: "AI Voice Agent (24/7 phone answering)", price: "$397–$697/mo" },
-  { name: "AI Chatbot (website assistant)", price: "$197–$397/mo" },
   { name: "Ecommerce Integration", price: "$3,000–$10,000" },
 ];
 

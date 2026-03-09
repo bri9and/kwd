@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "restaurant website",
     "small business website",
     "drone photography",
-    "AI voice agents",
+    "drone photography",
   ],
 };
 

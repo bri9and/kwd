@@ -7,7 +7,6 @@ import {
   Paintbrush,
   ShieldCheck,
   Camera,
-  Bot,
   ArrowRight,
   Monitor,
   Smartphone,
@@ -39,11 +38,6 @@ const services = [
     icon: Camera,
     title: "Drone Photography",
     desc: "FAA Part 107 certified aerial photography and video. Perfect for golf courses, real estate, and event venues.",
-  },
-  {
-    icon: Bot,
-    title: "AI Voice Agents",
-    desc: "Never miss a call. AI-powered phone answering and appointment booking that works 24/7 for your business.",
   },
   {
     icon: Code2,
