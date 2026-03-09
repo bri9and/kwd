@@ -12,6 +12,7 @@ import {
   Smartphone,
   Code2,
   Quote,
+  Lightbulb,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -43,6 +44,11 @@ const services = [
     icon: Code2,
     title: "Ecommerce",
     desc: "Online stores that convert. Product catalogs, payment processing, and inventory management built in.",
+  },
+  {
+    icon: Lightbulb,
+    title: "IT Consulting",
+    desc: "Network, systems, cloud, and AI consulting. We help you plan, build, and optimize your technology infrastructure.",
   },
 ];
 

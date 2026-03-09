@@ -103,6 +103,7 @@ const addons = [
   { name: "Golf Course Flyover (per hole)", price: "$150–$350" },
   { name: "Full 18-Hole Flyover Package", price: "$2,700–$5,000" },
   { name: "Ecommerce Integration", price: "$3,000–$10,000" },
+  { name: "IT Consulting (network, systems, cloud, AI)", price: "$150/hr" },
 ];
 
 export default function PricingPage() {
