@@ -213,10 +213,13 @@ const industries = [
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
-  const [displayValue, setDisplayValue] = useState(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || hasAnimated) return;
+    setHasAnimated(true);
+    setDisplayValue(0);
     let start = 0;
     const duration = 2000;
     const increment = value / (duration / 16);
@@ -230,7 +233,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
       }
     }, 16);
     return () => clearInterval(timer);
-  }, [isInView, value]);
+  }, [isInView, value, hasAnimated]);
 
   return (
     <span ref={ref}>
