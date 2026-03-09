@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -13,18 +14,25 @@ const links = [
   { href: "/#process", label: "Process" },
   { href: "/pricing", label: "Pricing" },
   { href: "/drone", label: "Photography" },
+  { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
 ];
 
 export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const isActive = (href: string) => {
+    if (href.startsWith("/#")) return pathname === "/";
+    return pathname === href;
+  };
 
   return (
     <header
@@ -50,9 +58,17 @@ export function Header() {
             <Link
               key={link.href}
               href={link.href}
-              className="relative text-sm text-cream/70 hover:text-cream px-3 py-2 rounded-md hover:bg-cream/10 transition-all duration-200"
+              className={cn(
+                "relative text-sm px-3 py-2 rounded-md transition-all duration-200",
+                isActive(link.href)
+                  ? "text-cream bg-cream/10"
+                  : "text-cream/70 hover:text-cream hover:bg-cream/10"
+              )}
             >
               {link.label}
+              {isActive(link.href) && (
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-burnt-orange rounded-full" />
+              )}
             </Link>
           ))}
           <Link
@@ -73,13 +89,18 @@ export function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-72 bg-brg-dark border-cream/10">
-            <nav className="flex flex-col gap-4 mt-8">
+            <nav className="flex flex-col gap-2 mt-8">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-lg text-cream/80 hover:text-cream hover:pl-2 transition-all duration-200"
+                  className={cn(
+                    "text-lg py-2 px-3 rounded-lg transition-all duration-200",
+                    isActive(link.href)
+                      ? "text-cream bg-cream/10"
+                      : "text-cream/80 hover:text-cream hover:bg-cream/5"
+                  )}
                 >
                   {link.label}
                 </Link>

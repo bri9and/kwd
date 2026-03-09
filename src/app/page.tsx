@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import {
   Globe,
   Paintbrush,
@@ -14,42 +15,58 @@ import {
   Quote,
   Lightbulb,
   ExternalLink,
+  CheckCircle2,
+  Users,
+  Award,
+  Clock,
+  Zap,
+  Heart,
+  ChevronDown,
+  Star,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { fadeUp, stagger } from "@/lib/animations";
+import { fadeUp, fadeIn, scaleUp, slideLeft, slideRight, stagger, staggerSlow } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+
+/* ── Data ── */
 
 const services = [
   {
     icon: Paintbrush,
     title: "Web Design",
     desc: "Custom-built sites that look modern and load fast. No templates, no page builders — clean, hand-written code.",
+    color: "text-brg",
   },
   {
     icon: Globe,
     title: "Managed Hosting",
     desc: "SSL, daily backups, DDoS protection, and uptime monitoring. We handle the infrastructure so you don't have to.",
+    color: "text-brg",
   },
   {
     icon: ShieldCheck,
     title: "Security & Support",
     desc: "Malware scanning, firewall protection, and ongoing maintenance. Your site stays safe and up to date.",
+    color: "text-brg",
   },
   {
     icon: Camera,
     title: "Drone Photography",
     desc: "FAA Part 107 certified aerial photography and video. Perfect for golf courses, real estate, and event venues.",
+    color: "text-brg",
   },
   {
     icon: Code2,
     title: "Ecommerce",
     desc: "Online stores that convert. Product catalogs, payment processing, and inventory management built in.",
+    color: "text-brg",
   },
   {
     icon: Lightbulb,
     title: "IT Consulting",
     desc: "Network, systems, cloud, and AI consulting. We help you plan, build, and optimize your technology infrastructure.",
+    color: "text-brg",
   },
 ];
 
@@ -96,22 +113,26 @@ const processSteps = [
   {
     step: "01",
     title: "Discovery",
-    desc: "We talk about your business, your goals, and what you need. No jargon, no pressure.",
+    desc: "We talk about your business, your goals, and what you need. No jargon, no pressure — just an honest conversation.",
+    icon: Users,
   },
   {
     step: "02",
     title: "Design",
-    desc: "You get a custom design mockup to review. We revise until it's exactly right.",
+    desc: "You get a custom design mockup to review. We revise until it's exactly right. No compromises.",
+    icon: Paintbrush,
   },
   {
     step: "03",
     title: "Build",
-    desc: "Hand-coded from scratch using modern technology. Fast, secure, and built to last.",
+    desc: "Hand-coded from scratch using modern technology. Fast, secure, and built to last for years.",
+    icon: Code2,
   },
   {
     step: "04",
     title: "Launch & Support",
-    desc: "We deploy your site, hand over the code, and offer ongoing support if you want it.",
+    desc: "We deploy your site, hand over the code, and offer ongoing support. You own everything.",
+    icon: Zap,
   },
 ];
 
@@ -121,14 +142,142 @@ const testimonials = [
       "We needed a way to preserve our family's stories before they were lost. Kiely built us something beautiful and simple enough for my 80-year-old mother to use. The whole family contributes now.",
     name: "Sarah M.",
     company: "My Family Memory",
+    role: "Founder",
+    rating: 5,
   },
   {
     quote:
       "Our old site looked like it was built in 2010. Within three weeks we had a modern, fast site that actually helps tenants find what they need. Maintenance requests dropped 40% because the online form actually works now.",
     name: "David K.",
     company: "Rental Helper",
+    role: "Owner",
+    rating: 5,
+  },
+  {
+    quote:
+      "Brian captured our entire course in stunning aerial footage. The flyover videos on our website have become a real talking point with members and visitors alike. Worth every penny.",
+    name: "Tom R.",
+    company: "Pittsburgh North GC",
+    role: "General Manager",
+    rating: 5,
   },
 ];
+
+const stats = [
+  { value: 6, suffix: "+", label: "Projects Delivered" },
+  { value: 100, suffix: "%", label: "Client Satisfaction" },
+  { value: 5, suffix: "", label: "Years Experience" },
+  { value: 24, suffix: "hr", label: "Response Time" },
+];
+
+const faqs = [
+  {
+    q: "How long does a website take to build?",
+    a: "Most projects take 1–4 weeks depending on complexity. A simple 3–5 page site can be done in a week. Larger projects with ecommerce or custom features take 2–4 weeks.",
+  },
+  {
+    q: "Do I own the code when it's done?",
+    a: "Yes, 100%. When your site is finished, we deliver the complete source code. It's yours — no lock-in, no proprietary platforms, no monthly fees unless you want hosting and support.",
+  },
+  {
+    q: "What if I already have a website?",
+    a: "We handle the full migration. We'll redesign and rebuild your site, move your content, and set up redirects so you don't lose any search engine rankings.",
+  },
+  {
+    q: "Do you work with businesses outside Pittsburgh?",
+    a: "Absolutely. While we're based in Pittsburgh, most of our work is done remotely. We've built sites for clients across Pennsylvania and beyond.",
+  },
+  {
+    q: "What technologies do you use?",
+    a: "We use modern frameworks like Next.js, React, and Tailwind CSS. Your site will be fast, secure, and built with the same tools used by top tech companies.",
+  },
+  {
+    q: "Can you help with SEO?",
+    a: "Every site we build includes foundational SEO — proper meta tags, fast load times, mobile responsiveness, and clean code structure. We also offer ongoing SEO optimization as part of our Growth Plan.",
+  },
+];
+
+const industries = [
+  "Golf Courses",
+  "Restaurants",
+  "Real Estate",
+  "Non-Profits",
+  "Local Services",
+  "Healthcare",
+  "Construction",
+  "Hospitality",
+];
+
+/* ── Counter Component ── */
+
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const isInView = useInView(ref, { once: true });
+  const [displayValue, setDisplayValue] = useState(0);
+
+  useEffect(() => {
+    if (!isInView) return;
+    let start = 0;
+    const duration = 2000;
+    const increment = value / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= value) {
+        setDisplayValue(value);
+        clearInterval(timer);
+      } else {
+        setDisplayValue(Math.floor(start));
+      }
+    }, 16);
+    return () => clearInterval(timer);
+  }, [isInView, value]);
+
+  return (
+    <span ref={ref}>
+      {displayValue}
+      {suffix}
+    </span>
+  );
+}
+
+/* ── FAQ Item ── */
+
+function FaqItem({ q, a }: { q: string; a: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <motion.div
+      variants={fadeUp}
+      className="border-b border-warm-gray/50 last:border-0"
+    >
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-center justify-between py-5 text-left group"
+      >
+        <span className="font-medium text-brg-dark group-hover:text-brg transition-colors pr-4">
+          {q}
+        </span>
+        <ChevronDown
+          className={cn(
+            "h-5 w-5 text-brg/40 shrink-0 transition-transform duration-300",
+            open && "rotate-180"
+          )}
+        />
+      </button>
+      <motion.div
+        initial={false}
+        animate={{ height: open ? "auto" : 0, opacity: open ? 1 : 0 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="overflow-hidden"
+      >
+        <p className="pb-5 text-muted-foreground text-sm leading-relaxed">
+          {a}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+/* ── Page ── */
 
 export default function Home() {
   return (
@@ -138,6 +287,12 @@ export default function Home() {
         <div className="absolute inset-0 bg-brg-dark" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,66,37,0.8)_0%,_transparent_60%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(200,90,26,0.15)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+
+        {/* Floating decorative elements */}
+        <div className="absolute top-1/4 left-[10%] w-64 h-64 rounded-full bg-brg/20 blur-3xl animate-float-slow" />
+        <div className="absolute bottom-1/3 right-[15%] w-48 h-48 rounded-full bg-burnt-orange/10 blur-3xl animate-float-reverse" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brg/5 blur-3xl animate-pulse-glow" />
 
         <motion.div
           initial="hidden"
@@ -145,16 +300,17 @@ export default function Home() {
           variants={stagger}
           className="relative z-10 max-w-4xl mx-auto px-6 text-center"
         >
-          <motion.p
+          <motion.div
             variants={fadeUp}
-            className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-6"
+            className="inline-flex items-center gap-2 bg-cream/5 border border-cream/10 rounded-full px-4 py-1.5 mb-8"
           >
-            Boutique Web Design Studio
-          </motion.p>
+            <div className="w-2 h-2 rounded-full bg-burnt-orange animate-pulse" />
+            <span className="text-cream/70 text-sm">Boutique Web Design Studio</span>
+          </motion.div>
 
           <motion.h1
             variants={fadeUp}
-            className="font-serif text-5xl md:text-7xl font-bold text-cream leading-[1.1] mb-8"
+            className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-cream leading-[1.05] mb-8"
           >
             Your website
             <br />
@@ -169,7 +325,7 @@ export default function Home() {
           >
             We take outdated websites and make them modern. Custom-built,
             hand-coded, and personally delivered. Serving golf courses,
-            restaurants, and local businesses.
+            restaurants, and local businesses across Pittsburgh and beyond.
           </motion.p>
 
           <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -177,14 +333,14 @@ export default function Home() {
               href="/contact"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "bg-burnt-orange hover:bg-burnt-orange-light text-white text-base px-8"
+                "bg-burnt-orange hover:bg-burnt-orange-light text-white text-base px-8 shadow-lg shadow-burnt-orange/20 hover:shadow-xl hover:shadow-burnt-orange/30 transition-all duration-300"
               )}
             >
               Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
             <Link
               href="/#work"
-              className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-colors"
+              className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-all duration-300"
             >
               See Our Work
             </Link>
@@ -208,11 +364,56 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <ChevronDown className="h-6 w-6 text-cream/30" />
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Stats Bar ── */}
+      <section className="py-16 bg-brg relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="grid grid-cols-2 md:grid-cols-4 gap-8"
+          >
+            {stats.map((stat) => (
+              <motion.div
+                key={stat.label}
+                variants={scaleUp}
+                className="text-center"
+              >
+                <div className="font-serif text-4xl md:text-5xl font-bold text-cream mb-2">
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                </div>
+                <p className="text-cream/50 text-sm uppercase tracking-wider">
+                  {stat.label}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </section>
 
       {/* ── Services ── */}
-      <section id="services" className="py-24 bg-cream">
-        <div className="max-w-6xl mx-auto px-6">
+      <section id="services" className="py-24 bg-cream relative">
+        <div className="absolute inset-0 bg-dot-pattern" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -232,6 +433,13 @@ export default function Home() {
             >
               Everything your business needs online.
             </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-muted-foreground mt-4 max-w-2xl mx-auto"
+            >
+              From initial design to ongoing support, we handle every aspect of
+              your digital presence so you can focus on running your business.
+            </motion.p>
           </motion.div>
 
           <motion.div
@@ -241,12 +449,14 @@ export default function Home() {
             variants={stagger}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {services.map((service) => (
+            {services.map((service, i) => (
               <motion.div key={service.title} variants={fadeUp}>
-                <Card className="h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-white">
+                <Card className="card-shine h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-white group">
                   <CardContent className="p-8">
-                    <service.icon className="h-8 w-8 text-brg mb-4" />
-                    <h3 className="font-serif text-xl font-semibold text-brg-dark mb-2">
+                    <div className="w-12 h-12 rounded-xl bg-brg/5 flex items-center justify-center mb-5 group-hover:bg-brg/10 transition-colors">
+                      <service.icon className="h-6 w-6 text-brg" />
+                    </div>
+                    <h3 className="font-serif text-xl font-semibold text-brg-dark mb-3">
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground text-sm leading-relaxed">
@@ -257,11 +467,43 @@ export default function Home() {
               </motion.div>
             ))}
           </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-center mt-12"
+          >
+            <Link
+              href="/pricing"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "border-brg/20 text-brg hover:bg-brg/5"
+              )}
+            >
+              View Pricing <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Industries Marquee ── */}
+      <section className="py-8 bg-white border-y border-warm-gray/30 overflow-hidden">
+        <div className="flex animate-marquee whitespace-nowrap">
+          {[...industries, ...industries, ...industries, ...industries].map((ind, i) => (
+            <span
+              key={i}
+              className="mx-8 text-sm uppercase tracking-[0.2em] text-brg/20 font-medium"
+            >
+              {ind}
+            </span>
+          ))}
         </div>
       </section>
 
       {/* ── Portfolio ── */}
-      <section id="work" className="py-24 bg-white">
+      <section id="work" className="py-24 bg-white relative">
         <div className="max-w-6xl mx-auto px-6">
           <motion.div
             initial="hidden"
@@ -282,6 +524,13 @@ export default function Home() {
             >
               Sites we&apos;ve built.
             </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-muted-foreground mt-4 max-w-xl mx-auto"
+            >
+              Real projects for real businesses. Every site is hand-coded,
+              mobile-responsive, and built to perform.
+            </motion.p>
           </motion.div>
 
           <motion.div
@@ -299,23 +548,27 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="block group"
                 >
-                  <Card className="group h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-cream/50">
-                    <CardContent className="p-8">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium">
+                  <Card className="card-shine group h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-cream/30">
+                    {/* Placeholder visual for the card top */}
+                    <div className="h-36 bg-gradient-to-br from-brg/5 to-brg/10 rounded-t-lg flex items-center justify-center border-b border-warm-gray/30">
+                      <div className="flex flex-col items-center gap-2">
+                        <Globe className="h-8 w-8 text-brg/20 group-hover:text-brg/40 transition-colors" />
+                        <span className="text-xs text-brg/30 font-medium">{project.url}</span>
+                      </div>
+                    </div>
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium bg-burnt-orange/5 px-2 py-1 rounded">
                           {project.category}
                         </span>
                         <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
                       </div>
-                      <h3 className="font-serif text-xl font-semibold text-brg-dark mb-2 group-hover:text-brg transition-colors">
+                      <h3 className="font-serif text-lg font-semibold text-brg-dark mb-2 group-hover:text-brg transition-colors">
                         {project.name}
                       </h3>
-                      <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+                      <p className="text-muted-foreground text-sm leading-relaxed">
                         {project.desc}
                       </p>
-                      <span className="text-xs text-brg font-medium group-hover:underline">
-                        {project.url}
-                      </span>
                     </CardContent>
                   </Card>
                 </a>
@@ -344,8 +597,9 @@ export default function Home() {
       </section>
 
       {/* ── Process ── */}
-      <section id="process" className="py-24 bg-brg-dark text-cream">
-        <div className="max-w-6xl mx-auto px-6">
+      <section id="process" className="py-24 bg-brg-dark text-cream relative overflow-hidden grain-overlay">
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -365,6 +619,13 @@ export default function Home() {
             >
               Simple, transparent process.
             </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-cream/50 mt-4 max-w-xl mx-auto"
+            >
+              No surprises, no runaround. Here&apos;s exactly how we work together
+              from start to finish.
+            </motion.p>
           </motion.div>
 
           <motion.div
@@ -375,25 +636,164 @@ export default function Home() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
             {processSteps.map((step) => (
-              <motion.div key={step.step} variants={fadeUp}>
-                <span className="font-serif text-5xl font-bold text-burnt-orange/30">
-                  {step.step}
-                </span>
-                <h3 className="font-serif text-xl font-semibold mt-2 mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-cream/60 text-sm leading-relaxed">
-                  {step.desc}
-                </p>
+              <motion.div key={step.step} variants={fadeUp} className="relative group">
+                <div className="absolute -top-2 -left-2 w-16 h-16 rounded-2xl bg-burnt-orange/5 group-hover:bg-burnt-orange/10 transition-colors" />
+                <div className="relative">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="font-serif text-4xl font-bold text-burnt-orange/30">
+                      {step.step}
+                    </span>
+                    <step.icon className="h-5 w-5 text-burnt-orange/50" />
+                  </div>
+                  <h3 className="font-serif text-xl font-semibold mt-2 mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-cream/60 text-sm leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
               </motion.div>
             ))}
+          </motion.div>
+
+          {/* Process timeline connector (desktop) */}
+          <div className="hidden lg:block mt-12">
+            <div className="flex items-center justify-center gap-2">
+              <div className="h-0.5 w-16 bg-gradient-to-r from-transparent to-burnt-orange/30" />
+              <div className="w-2 h-2 rounded-full bg-burnt-orange/40" />
+              <div className="h-0.5 flex-1 bg-burnt-orange/20" />
+              <div className="w-2 h-2 rounded-full bg-burnt-orange/40" />
+              <div className="h-0.5 flex-1 bg-burnt-orange/20" />
+              <div className="w-2 h-2 rounded-full bg-burnt-orange/40" />
+              <div className="h-0.5 flex-1 bg-burnt-orange/20" />
+              <div className="w-2 h-2 rounded-full bg-burnt-orange/40" />
+              <div className="h-0.5 w-16 bg-gradient-to-l from-transparent to-burnt-orange/30" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Why Choose Us ── */}
+      <section className="py-24 bg-cream relative">
+        <div className="absolute inset-0 bg-dot-pattern" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <motion.p
+                  variants={fadeUp}
+                  className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
+                >
+                  Why KWD
+                </motion.p>
+                <motion.h2
+                  variants={fadeUp}
+                  className="font-serif text-4xl md:text-5xl font-bold text-brg-dark mb-8"
+                >
+                  Not your average
+                  <br />
+                  web agency.
+                </motion.h2>
+                <motion.div variants={fadeUp} className="space-y-6">
+                  <div className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-brg/5 flex items-center justify-center shrink-0">
+                      <Heart className="h-5 w-5 text-brg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-brg-dark mb-1">Personal Attention</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        One person handles your entire project from start to finish. No account managers, no handoffs, no surprises.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-brg/5 flex items-center justify-center shrink-0">
+                      <Code2 className="h-5 w-5 text-brg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-brg-dark mb-1">You Own the Code</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        No proprietary platforms. No lock-in. When it&apos;s done, you get the full source code. It&apos;s yours forever.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-brg/5 flex items-center justify-center shrink-0">
+                      <Zap className="h-5 w-5 text-brg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-brg-dark mb-1">Modern Technology</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        Built with the same frameworks used by Fortune 500 companies. Your site will be fast, secure, and future-proof.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4">
+                    <div className="w-10 h-10 rounded-lg bg-brg/5 flex items-center justify-center shrink-0">
+                      <Award className="h-5 w-5 text-brg" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-brg-dark mb-1">Below Market Rates</h4>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        Agency-quality work at freelancer prices. No overhead means we pass the savings on to you.
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+
+              {/* Visual element */}
+              <motion.div variants={scaleUp} className="relative hidden lg:block">
+                <div className="relative aspect-square max-w-md mx-auto">
+                  {/* Decorative background */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-brg/5 to-burnt-orange/5 border border-warm-gray/30" />
+                  <div className="absolute inset-4 rounded-2xl bg-white border border-warm-gray/50 shadow-lg flex flex-col items-center justify-center p-8">
+                    <div className="w-20 h-20 rounded-2xl bg-brg/10 flex items-center justify-center mb-6">
+                      <span className="font-serif text-3xl font-bold text-brg">KWD</span>
+                    </div>
+                    <p className="text-center text-brg-dark font-serif text-xl font-semibold mb-2">
+                      Boutique Quality
+                    </p>
+                    <p className="text-center text-muted-foreground text-sm mb-6">
+                      Every detail matters. Every line of code is intentional.
+                    </p>
+                    <div className="w-full space-y-3">
+                      <div className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-brg shrink-0" />
+                        <span className="text-muted-foreground">Hand-coded, no templates</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-brg shrink-0" />
+                        <span className="text-muted-foreground">Lightning-fast load times</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-brg shrink-0" />
+                        <span className="text-muted-foreground">SEO optimized from day one</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-sm">
+                        <CheckCircle2 className="h-4 w-4 text-brg shrink-0" />
+                        <span className="text-muted-foreground">Ongoing support available</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Corner accents */}
+                  <div className="absolute -top-3 -right-3 w-6 h-6 border-t-2 border-r-2 border-burnt-orange/30 rounded-tr-lg" />
+                  <div className="absolute -bottom-3 -left-3 w-6 h-6 border-b-2 border-l-2 border-burnt-orange/30 rounded-bl-lg" />
+                </div>
+              </motion.div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* ── Testimonials ── */}
-      <section className="py-24 bg-cream">
-        <div className="max-w-4xl mx-auto px-6">
+      <section className="py-24 bg-white relative">
+        <div className="max-w-5xl mx-auto px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -420,22 +820,28 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
             variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="grid grid-cols-1 md:grid-cols-3 gap-6"
           >
             {testimonials.map((t) => (
               <motion.div key={t.name} variants={fadeUp}>
-                <Card className="h-full border-warm-gray/50 bg-white">
+                <Card className="h-full border-warm-gray/50 bg-cream/30 hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-8">
-                    <Quote className="h-6 w-6 text-burnt-orange/40 mb-4" />
-                    <p className="text-foreground leading-relaxed mb-6 italic">
+                    {/* Star rating */}
+                    <div className="flex gap-1 mb-4">
+                      {Array.from({ length: t.rating }).map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-burnt-orange text-burnt-orange" />
+                      ))}
+                    </div>
+                    <Quote className="h-6 w-6 text-burnt-orange/20 mb-4" />
+                    <p className="text-foreground leading-relaxed mb-6 text-sm">
                       &ldquo;{t.quote}&rdquo;
                     </p>
-                    <div>
+                    <div className="border-t border-warm-gray/30 pt-4">
                       <p className="font-semibold text-sm text-brg-dark">
                         {t.name}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {t.company}
+                        {t.role}, {t.company}
                       </p>
                     </div>
                   </CardContent>
@@ -446,9 +852,72 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── FAQ ── */}
+      <section className="py-24 bg-cream relative">
+        <div className="absolute inset-0 bg-dot-pattern" />
+        <div className="max-w-3xl mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.p
+              variants={fadeUp}
+              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
+            >
+              Common Questions
+            </motion.p>
+            <motion.h2
+              variants={fadeUp}
+              className="font-serif text-4xl md:text-5xl font-bold text-brg-dark"
+            >
+              Frequently asked.
+            </motion.h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={stagger}
+          >
+            {faqs.map((faq) => (
+              <FaqItem key={faq.q} q={faq.q} a={faq.a} />
+            ))}
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="text-center mt-12"
+          >
+            <p className="text-muted-foreground text-sm mb-4">
+              Still have questions?
+            </p>
+            <Link
+              href="/contact"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "border-brg/20 text-brg hover:bg-brg/5"
+              )}
+            >
+              Get in Touch <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── About / CTA ── */}
-      <section className="py-24 bg-white">
-        <div className="max-w-3xl mx-auto px-6 text-center">
+      <section className="py-24 bg-brg-dark text-cream relative overflow-hidden grain-overlay">
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+        <div className="absolute top-0 left-0 w-96 h-96 bg-brg/30 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
+        <div className="absolute bottom-0 right-0 w-72 h-72 bg-burnt-orange/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+
+        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -463,7 +932,7 @@ export default function Home() {
             </motion.p>
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-4xl md:text-5xl font-bold text-brg-dark mb-8"
+              className="font-serif text-4xl md:text-5xl font-bold mb-8"
             >
               Built by hand,
               <br />
@@ -471,7 +940,7 @@ export default function Home() {
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-muted-foreground text-lg leading-relaxed mb-6"
+              className="text-cream/60 text-lg leading-relaxed mb-6"
             >
               Kiely Web Design is a one-person studio based in Pittsburgh, PA. Every
               project is handled personally — from the first conversation to the
@@ -480,21 +949,27 @@ export default function Home() {
             </motion.p>
             <motion.p
               variants={fadeUp}
-              className="text-muted-foreground text-lg leading-relaxed mb-10"
+              className="text-cream/60 text-lg leading-relaxed mb-10"
             >
               When your site is done, you get the code. It&apos;s yours. Full
               ownership, no lock-in. If you want ongoing hosting and support,
               we offer that too — but it&apos;s always your choice.
             </motion.p>
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
                 className={cn(
                   buttonVariants({ size: "lg" }),
-                  "bg-brg hover:bg-brg-light text-cream text-base px-8"
+                  "bg-burnt-orange hover:bg-burnt-orange-light text-white text-base px-8 shadow-lg shadow-burnt-orange/20"
                 )}
               >
                 Let&apos;s Talk <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/about"
+                className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-all duration-300"
+              >
+                Learn More About Us
               </Link>
             </motion.div>
           </motion.div>

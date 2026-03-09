@@ -2,13 +2,61 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Send, Mail, MapPin } from "lucide-react";
+import {
+  Send,
+  Mail,
+  MapPin,
+  Clock,
+  CheckCircle2,
+  Phone,
+  MessageSquare,
+  ArrowRight,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { fadeUp, stagger } from "@/lib/animations";
+import { fadeUp, scaleUp, stagger } from "@/lib/animations";
+
+const contactInfo = [
+  {
+    icon: Mail,
+    label: "Email",
+    value: "hello@kielywebdesign.com",
+    href: "mailto:hello@kielywebdesign.com",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Pittsburgh, PA",
+    href: null,
+  },
+  {
+    icon: Clock,
+    label: "Response Time",
+    value: "Within 24 hours",
+    href: null,
+  },
+];
+
+const nextSteps = [
+  {
+    step: "1",
+    title: "We'll review your message",
+    desc: "Within 24 hours, you'll hear back from Brian personally.",
+  },
+  {
+    step: "2",
+    title: "Free discovery call",
+    desc: "A quick 15-minute call to understand your goals and timeline.",
+  },
+  {
+    step: "3",
+    title: "Custom proposal",
+    desc: "You'll receive a detailed proposal with pricing and timeline.",
+  },
+];
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -47,8 +95,11 @@ export default function ContactPage() {
 
   return (
     <>
-      <section className="pt-32 pb-16 bg-brg-dark text-cream">
-        <div className="max-w-4xl mx-auto px-6 text-center">
+      {/* Hero */}
+      <section className="pt-32 pb-16 bg-brg-dark text-cream relative overflow-hidden grain-overlay">
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+        <div className="absolute bottom-0 left-[10%] w-64 h-64 rounded-full bg-burnt-orange/10 blur-3xl" />
+        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
             <motion.p
               variants={fadeUp}
@@ -60,60 +111,137 @@ export default function ContactPage() {
               variants={fadeUp}
               className="font-serif text-4xl md:text-6xl font-bold mb-6"
             >
-              Let&apos;s build something.
+              Let&apos;s build
+              <br />
+              <span className="text-burnt-orange-light">something great.</span>
             </motion.h1>
             <motion.p
               variants={fadeUp}
               className="text-cream/60 text-lg max-w-2xl mx-auto leading-relaxed"
             >
               Tell us about your business and what you&apos;re looking for.
-              We&apos;ll get back to you within 24 hours.
+              We&apos;ll get back to you within 24 hours with honest advice —
+              no sales pitch, no pressure.
             </motion.p>
           </motion.div>
         </div>
       </section>
 
-      <section className="py-24 bg-cream">
+      {/* Contact Info Bar */}
+      <section className="py-8 bg-brg border-t border-cream/10">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            {/* Contact Info */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="flex flex-col md:flex-row items-center justify-center gap-8"
+          >
+            {contactInfo.map((info) => (
+              <motion.div
+                key={info.label}
+                variants={fadeUp}
+                className="flex items-center gap-3 text-cream"
+              >
+                <div className="w-8 h-8 rounded-lg bg-cream/5 flex items-center justify-center">
+                  <info.icon className="h-4 w-4 text-burnt-orange" />
+                </div>
+                <div>
+                  <p className="text-xs text-cream/40">{info.label}</p>
+                  {info.href ? (
+                    <a
+                      href={info.href}
+                      className="text-sm font-medium hover:text-burnt-orange transition-colors"
+                    >
+                      {info.value}
+                    </a>
+                  ) : (
+                    <p className="text-sm font-medium">{info.value}</p>
+                  )}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Form Section */}
+      <section className="py-24 bg-cream relative">
+        <div className="absolute inset-0 bg-dot-pattern" />
+        <div className="max-w-5xl mx-auto px-6 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+            {/* Sidebar */}
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={stagger}
-              className="space-y-6"
+              className="lg:col-span-2 space-y-8"
             >
+              <div>
+                <motion.h3
+                  variants={fadeUp}
+                  className="font-serif text-2xl font-bold text-brg-dark mb-4"
+                >
+                  What happens next?
+                </motion.h3>
+                <motion.div variants={fadeUp} className="space-y-6">
+                  {nextSteps.map((step) => (
+                    <div key={step.step} className="flex gap-4">
+                      <div className="w-8 h-8 rounded-full bg-brg/5 flex items-center justify-center shrink-0">
+                        <span className="text-sm font-semibold text-brg">
+                          {step.step}
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="font-medium text-brg-dark text-sm">
+                          {step.title}
+                        </h4>
+                        <p className="text-muted-foreground text-xs mt-0.5">
+                          {step.desc}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
+
               <motion.div variants={fadeUp}>
-                <Card className="border-warm-gray/50 bg-white">
+                <Card className="border-brg/10 bg-brg/[0.02]">
                   <CardContent className="p-6">
-                    <Mail className="h-5 w-5 text-brg mb-3" />
-                    <p className="text-sm font-medium text-brg-dark">Email</p>
-                    <a
-                      href="mailto:hello@kielywebdesign.com"
-                      className="text-sm text-muted-foreground hover:text-brg transition-colors"
-                    >
-                      hello@kielywebdesign.com
-                    </a>
-                  </CardContent>
-                </Card>
-              </motion.div>
-              <motion.div variants={fadeUp}>
-                <Card className="border-warm-gray/50 bg-white">
-                  <CardContent className="p-6">
-                    <MapPin className="h-5 w-5 text-brg mb-3" />
-                    <p className="text-sm font-medium text-brg-dark">Location</p>
-                    <p className="text-sm text-muted-foreground">
-                      Pittsburgh, PA
+                    <MessageSquare className="h-5 w-5 text-brg mb-3" />
+                    <p className="text-sm text-brg-dark font-medium mb-1">
+                      Prefer a quick chat?
+                    </p>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      Send us an email at{" "}
+                      <a
+                        href="mailto:hello@kielywebdesign.com"
+                        className="text-brg hover:underline"
+                      >
+                        hello@kielywebdesign.com
+                      </a>{" "}
+                      and we&apos;ll set up a call at a time that works for you.
                     </p>
                   </CardContent>
                 </Card>
               </motion.div>
+
               <motion.div variants={fadeUp}>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Every project starts with a conversation. No sales pitch, no
-                  pressure — just a real discussion about what you need.
-                </p>
+                <div className="p-5 rounded-xl bg-white border border-warm-gray/50">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Clock className="h-4 w-4 text-brg" />
+                    <span className="text-sm font-medium text-brg-dark">
+                      Availability
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Monday - Friday, 9am - 6pm EST
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Weekend messages answered Monday morning
+                  </p>
+                </div>
               </motion.div>
             </motion.div>
 
@@ -123,26 +251,55 @@ export default function ContactPage() {
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUp}
-              className="md:col-span-2"
+              className="lg:col-span-3"
             >
               {submitted ? (
                 <Card className="border-brg/20 bg-white">
                   <CardContent className="p-12 text-center">
-                    <div className="w-12 h-12 rounded-full bg-brg/10 flex items-center justify-center mx-auto mb-4">
-                      <Send className="h-5 w-5 text-brg" />
-                    </div>
-                    <h3 className="font-serif text-2xl font-bold text-brg-dark mb-2">
-                      Message sent.
-                    </h3>
-                    <p className="text-muted-foreground">
-                      We&apos;ll get back to you within 24 hours.
-                    </p>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 200,
+                        damping: 15,
+                      }}
+                      className="w-16 h-16 rounded-full bg-brg/10 flex items-center justify-center mx-auto mb-6"
+                    >
+                      <CheckCircle2 className="h-8 w-8 text-brg" />
+                    </motion.div>
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                    >
+                      <h3 className="font-serif text-2xl font-bold text-brg-dark mb-3">
+                        Message sent!
+                      </h3>
+                      <p className="text-muted-foreground mb-2">
+                        Thanks for reaching out. We&apos;ll review your message and
+                        get back to you within 24 hours.
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        In the meantime, feel free to browse our{" "}
+                        <a href="/#work" className="text-brg hover:underline">
+                          recent work
+                        </a>
+                        .
+                      </p>
+                    </motion.div>
                   </CardContent>
                 </Card>
               ) : (
-                <Card className="border-warm-gray/50 bg-white">
+                <Card className="border-warm-gray/50 bg-white shadow-sm">
                   <CardContent className="p-8">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <h3 className="font-serif text-xl font-semibold text-brg-dark mb-1">
+                      Tell us about your project
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-6">
+                      Fields marked with * are required.
+                    </p>
+                    <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
                           <Label htmlFor="name">Name *</Label>
@@ -151,6 +308,7 @@ export default function ContactPage() {
                             name="name"
                             required
                             placeholder="Your name"
+                            className="bg-cream/30"
                           />
                         </div>
                         <div className="space-y-2">
@@ -161,6 +319,7 @@ export default function ContactPage() {
                             type="email"
                             required
                             placeholder="you@example.com"
+                            className="bg-cream/30"
                           />
                         </div>
                       </div>
@@ -173,6 +332,7 @@ export default function ContactPage() {
                             name="phone"
                             type="tel"
                             placeholder="(555) 123-4567"
+                            className="bg-cream/30"
                           />
                         </div>
                         <div className="space-y-2">
@@ -181,16 +341,20 @@ export default function ContactPage() {
                             id="business"
                             name="business"
                             placeholder="Your business"
+                            className="bg-cream/30"
                           />
                         </div>
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="website">Current Website (if any)</Label>
+                        <Label htmlFor="website">
+                          Current Website (if any)
+                        </Label>
                         <Input
                           id="website"
                           name="website"
                           placeholder="www.example.com"
+                          className="bg-cream/30"
                         />
                       </div>
 
@@ -204,17 +368,31 @@ export default function ContactPage() {
                           required
                           rows={5}
                           placeholder="What are you looking for? A new site, a redesign, drone photography, something else?"
+                          className="bg-cream/30"
                         />
                       </div>
 
                       <Button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-brg hover:bg-brg-light text-cream"
+                        className="w-full bg-brg hover:bg-brg-light text-cream shadow-md hover:shadow-lg transition-all"
                       >
-                        {loading ? "Sending..." : "Send Message"}
-                        <Send className="ml-2 h-4 w-4" />
+                        {loading ? (
+                          <>
+                            <span className="animate-pulse">Sending...</span>
+                          </>
+                        ) : (
+                          <>
+                            Send Message
+                            <Send className="ml-2 h-4 w-4" />
+                          </>
+                        )}
                       </Button>
+
+                      <p className="text-xs text-center text-muted-foreground">
+                        We respect your privacy. Your information is never shared
+                        or sold.
+                      </p>
                     </form>
                   </CardContent>
                 </Card>
