@@ -373,8 +373,96 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Comparison */}
       <section className="py-24 bg-white">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="text-center mb-16"
+          >
+            <motion.p
+              variants={fadeUp}
+              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
+            >
+              The Difference
+            </motion.p>
+            <motion.h2
+              variants={fadeUp}
+              className="font-serif text-3xl md:text-4xl font-bold text-brg-dark"
+            >
+              KWD vs. the alternatives.
+            </motion.h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeUp}
+          >
+            <div className="overflow-hidden rounded-xl border border-warm-gray/50">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="bg-brg-dark text-cream">
+                    <th className="text-left p-4 font-medium"></th>
+                    <th className="p-4 font-semibold text-burnt-orange">KWD</th>
+                    <th className="p-4 font-medium text-cream/60">Big Agency</th>
+                    <th className="p-4 font-medium text-cream/60">DIY Builder</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    { feature: "Custom code", kwd: true, agency: true, diy: false },
+                    { feature: "You own the code", kwd: true, agency: false, diy: false },
+                    { feature: "Personal attention", kwd: true, agency: false, diy: false },
+                    { feature: "Modern tech stack", kwd: true, agency: true, diy: false },
+                    { feature: "Fast load times", kwd: true, agency: false, diy: false },
+                    { feature: "No monthly lock-in", kwd: true, agency: false, diy: false },
+                    { feature: "Drone photography", kwd: true, agency: false, diy: false },
+                    { feature: "Under $3,000", kwd: true, agency: false, diy: true },
+                  ].map((row, i) => (
+                    <tr
+                      key={row.feature}
+                      className={i % 2 === 0 ? "bg-cream/50" : "bg-white"}
+                    >
+                      <td className="p-4 font-medium text-brg-dark">
+                        {row.feature}
+                      </td>
+                      <td className="p-4 text-center">
+                        {row.kwd ? (
+                          <span className="text-brg font-bold">&#10003;</span>
+                        ) : (
+                          <span className="text-muted-foreground">&#8212;</span>
+                        )}
+                      </td>
+                      <td className="p-4 text-center">
+                        {row.agency ? (
+                          <span className="text-brg/50">&#10003;</span>
+                        ) : (
+                          <span className="text-muted-foreground">&#8212;</span>
+                        )}
+                      </td>
+                      <td className="p-4 text-center">
+                        {row.diy ? (
+                          <span className="text-brg/50">&#10003;</span>
+                        ) : (
+                          <span className="text-muted-foreground">&#8212;</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-24 bg-brg-dark text-cream relative overflow-hidden grain-overlay">
         <div className="max-w-3xl mx-auto px-6 text-center">
           <motion.div
             initial="hidden"
