@@ -98,7 +98,7 @@ const addons = [
   { name: "Drone Photography (exteriors & aerials)", price: "$195–$520" },
   { name: "Drone Video (30–60s promo)", price: "$325–$975" },
   { name: "Golf Course Flyover (per hole, with overlays)", price: "$200–$400" },
-  { name: "Full 18-Hole Package (editing, music, hole graphics)", price: "$5,000–$8,500" },
+  { name: "Full 18-Hole Package (clubhouse, facilities, editing, music, graphics)", price: "$5,000–$8,500" },
   { name: "Ecommerce Integration", price: "$1,950–$6,500" },
   { name: "IT Consulting (network, systems, cloud, AI)", price: "$100/hr" },
 ];

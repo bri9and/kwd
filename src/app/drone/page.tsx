@@ -30,7 +30,7 @@ const droneServices = [
   {
     icon: Shield,
     title: "Full 18-Hole Package",
-    desc: "Complete course flyover with professional editing, licensed music, hole-by-hole graphics (yardage, par, handicap), color grading, and delivery optimized for web, social, and broadcast.",
+    desc: "Complete course flyover including clubhouse, facilities, and all 18 holes. Professional editing, licensed music, hole-by-hole graphics (yardage, par, handicap), color grading, and delivery optimized for web, social, and broadcast.",
     price: "$5,000–$8,500",
   },
 ];
