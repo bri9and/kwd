@@ -243,7 +243,7 @@ export default function Home() {
           >
             {services.map((service) => (
               <motion.div key={service.title} variants={fadeUp}>
-                <Card className="h-full border-warm-gray/50 hover:border-brg/20 transition-colors bg-white">
+                <Card className="h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-white">
                   <CardContent className="p-8">
                     <service.icon className="h-8 w-8 text-brg mb-4" />
                     <h3 className="font-serif text-xl font-semibold text-brg-dark mb-2">
