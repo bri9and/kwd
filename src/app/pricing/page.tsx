@@ -189,15 +189,6 @@ export default function PricingPage() {
                         </li>
                       ))}
                     </ul>
-                    <Link
-                      href="/contact"
-                      className={cn(
-                        buttonVariants(),
-                        "w-full bg-brg-dark/10 hover:bg-brg hover:text-cream text-brg-dark transition-colors"
-                      )}
-                    >
-                      Get Started
-                    </Link>
                   </CardContent>
                 </Card>
               </motion.div>
