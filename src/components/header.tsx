@@ -30,7 +30,7 @@ export function Header() {
   }, []);
 
   const isActive = (href: string) => {
-    if (href.startsWith("/#")) return pathname === "/";
+    if (href.startsWith("/#")) return false;
     return pathname === href;
   };
 
