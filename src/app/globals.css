@@ -299,6 +299,75 @@
   }
 }
 
+/* ── Gradient Text ── */
+.text-gradient-brg {
+  background: linear-gradient(135deg, #004225, #005c35, #004225);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-orange {
+  background: linear-gradient(135deg, #c85a1a, #e07020);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Gradient Border ── */
+.gradient-border {
+  position: relative;
+  background: white;
+  border-radius: 0.75rem;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, #004225, #c85a1a, #004225);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* ── Focus Styles ── */
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #004225;
+  outline-offset: 2px;
+}
+
+/* ── Link Underline Animation ── */
+.link-underline {
+  position: relative;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
 /* ── Scrollbar ── */
 ::-webkit-scrollbar {
   width: 8px;
@@ -315,4 +384,24 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: #005c35;
+}
+
+/* ── Smooth Focus Ring ── */
+*:focus-visible {
+  outline-color: #004225;
+  transition: outline-offset 0.1s ease;
+}
+
+/* ── Print Styles ── */
+@media print {
+  header, footer, .back-to-top {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  section {
+    break-inside: avoid;
+  }
 }
