@@ -38,16 +38,11 @@ export function Header() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <Link href="/" className="group flex items-center gap-3">
           <span className="font-serif text-2xl font-bold text-cream tracking-tight group-hover:text-burnt-orange transition-colors duration-200">
-            K
+            KWD
           </span>
-          <div className="flex flex-col leading-none">
-            <span className="text-sm font-semibold text-cream tracking-wide">
-              Kiely
-            </span>
-            <span className="text-[10px] uppercase tracking-[0.25em] text-cream/50 font-medium">
-              Web Design
-            </span>
-          </div>
+          <span className="hidden sm:block text-[11px] uppercase tracking-[0.2em] text-cream/50 font-medium">
+            Kiely Web Design
+          </span>
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">

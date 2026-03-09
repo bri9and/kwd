@@ -7,7 +7,10 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <div>
             <span className="font-serif text-2xl font-bold tracking-tight">
-              Kiely
+              KWD
+            </span>
+            <span className="text-[11px] uppercase tracking-[0.2em] text-cream/50 font-medium ml-3">
+              Kiely Web Design
             </span>
             <p className="text-cream/60 text-sm mt-3 max-w-xs leading-relaxed">
               Hand-crafted websites for businesses that care about their online
