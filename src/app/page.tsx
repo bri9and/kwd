@@ -28,6 +28,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { fadeUp, fadeIn, scaleUp, slideLeft, slideRight, stagger, staggerSlow } from "@/lib/animations";
 import { cn } from "@/lib/utils";
+import { BrowserMockup } from "@/components/browser-mockup";
 
 /* ── Data ── */
 
@@ -530,18 +531,19 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="block group"
                 >
-                  <div className="aspect-video rounded-xl bg-gradient-to-br from-brg/30 to-brg/10 border border-cream/10 overflow-hidden relative">
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <Globe className="h-12 w-12 text-cream/10 group-hover:text-cream/20 transition-colors mb-3" />
-                      <span className="text-cream/20 text-sm font-medium">pittsburghnorthgc.com</span>
+                  <BrowserMockup url="pittsburghnorthgc.com" className="border-cream/10 bg-brg/10 shadow-2xl shadow-black/20">
+                    <div className="aspect-video bg-gradient-to-br from-brg/20 to-brg/5 relative">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center">
+                        <Globe className="h-10 w-10 text-cream/15 group-hover:text-cream/30 transition-colors mb-2" />
+                        <span className="text-cream/20 text-xs font-medium">Live Preview</span>
+                      </div>
+                      <div className="absolute bottom-3 left-3">
+                        <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium bg-burnt-orange/10 px-2 py-1 rounded">
+                          Golf Course
+                        </span>
+                      </div>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-brg-dark/60 to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                      <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium bg-burnt-orange/10 px-2 py-1 rounded">
-                        Golf Course
-                      </span>
-                    </div>
-                  </div>
+                  </BrowserMockup>
                 </a>
               </motion.div>
               <motion.div variants={fadeUp}>
