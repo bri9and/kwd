@@ -6,7 +6,7 @@ import { Check, ArrowRight } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+
 import { fadeUp, stagger } from "@/lib/animations";
 
 const designTiers = [
@@ -23,7 +23,6 @@ const designTiers = [
       "2-week turnaround",
       "Full source code delivered",
     ],
-    popular: false,
   },
   {
     name: "Professional",
@@ -40,7 +39,6 @@ const designTiers = [
       "4–6 week turnaround",
       "Full source code delivered",
     ],
-    popular: true,
   },
   {
     name: "Premium",
@@ -57,7 +55,6 @@ const designTiers = [
       "6–12 week turnaround",
       "Full source code delivered",
     ],
-    popular: false,
   },
 ];
 
@@ -168,18 +165,7 @@ export default function PricingPage() {
           >
             {designTiers.map((tier) => (
               <motion.div key={tier.name} variants={fadeUp}>
-                <Card
-                  className={`h-full relative ${
-                    tier.popular
-                      ? "border-brg shadow-lg scale-[1.02]"
-                      : "border-warm-gray/50"
-                  } bg-white`}
-                >
-                  {tier.popular && (
-                    <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-burnt-orange text-white">
-                      Most Popular
-                    </Badge>
-                  )}
+                <Card className="h-full border-warm-gray/50 bg-white transition-all duration-300 hover:border-brg hover:shadow-lg hover:scale-[1.02]">
                   <CardContent className="p-8">
                     <h3 className="font-serif text-2xl font-bold text-brg-dark">
                       {tier.name}
@@ -207,10 +193,7 @@ export default function PricingPage() {
                       href="/contact"
                       className={cn(
                         buttonVariants(),
-                        "w-full",
-                        tier.popular
-                          ? "bg-brg hover:bg-brg-light text-cream"
-                          : "bg-brg-dark/10 hover:bg-brg-dark/20 text-brg-dark"
+                        "w-full bg-brg-dark/10 hover:bg-brg hover:text-cream text-brg-dark transition-colors"
                       )}
                     >
                       Get Started
