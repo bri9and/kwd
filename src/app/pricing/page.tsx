@@ -12,8 +12,8 @@ import { fadeUp, stagger } from "@/lib/animations";
 const designTiers = [
   {
     name: "Starter",
-    price: "$1,950",
-    priceSuffix: "–$3,250",
+    price: "$1,650",
+    priceSuffix: "–$2,750",
     desc: "Perfect for small businesses that need a clean, modern online presence.",
     features: [
       "3–5 page custom website",
@@ -26,8 +26,8 @@ const designTiers = [
   },
   {
     name: "Professional",
-    price: "$3,250",
-    priceSuffix: "–$6,500",
+    price: "$2,750",
+    priceSuffix: "–$5,500",
     desc: "For businesses ready for a serious online upgrade with advanced features.",
     features: [
       "5–10 page custom website",
@@ -42,8 +42,8 @@ const designTiers = [
   },
   {
     name: "Premium",
-    price: "$6,500",
-    priceSuffix: "–$13,000",
+    price: "$5,500",
+    priceSuffix: "–$11,000",
     desc: "Full-service build with ecommerce, integrations, and brand strategy.",
     features: [
       "10+ page custom website",
@@ -99,7 +99,7 @@ const addons = [
   { name: "Drone Video (30–60s promo)", price: "$1,000" },
   { name: "Golf Course Flyover (raw footage, per hole)", price: "$100" },
   { name: "Full 18-Hole Package (clubhouse, facilities, editing, music, graphics)", price: "$3,600" },
-  { name: "Ecommerce Integration", price: "$1,950–$6,500" },
+  { name: "Ecommerce Integration", price: "$1,650–$5,500" },
   { name: "IT Consulting (network, systems, cloud, AI)", price: "$100/hr" },
 ];
 
