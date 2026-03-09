@@ -25,7 +25,7 @@ export function Footer() {
                 { href: "/#work", label: "Portfolio" },
                 { href: "/pricing", label: "Pricing" },
                 { href: "/contact", label: "Contact" },
-                { href: "/drone", label: "Drone Services" },
+                { href: "/drone", label: "Photography" },
               ].map((link) => (
                 <Link
                   key={link.href}
