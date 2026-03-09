@@ -24,8 +24,8 @@ const droneServices = [
   {
     icon: MapPin,
     title: "Golf Course Flyovers",
-    desc: "Hole-by-hole aerial flyover footage with yardage, par, and hole information overlays. Give members and visitors a bird's-eye preview of every hole.",
-    price: "$200–$400/hole",
+    desc: "Raw, unedited hole-by-hole aerial flyover footage. Perfect for courses that want to handle their own post-production or need source material fast.",
+    price: "$100/hole",
   },
   {
     icon: Shield,
