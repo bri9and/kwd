@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+import { PageTransition } from "@/components/page-transition";
+import { BackToTop } from "@/components/back-to-top";
 
 const inter = Inter({
   variable: "--font-sans",
@@ -109,8 +111,11 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} antialiased`}>
         <Header />
-        <main>{children}</main>
+        <main>
+          <PageTransition>{children}</PageTransition>
+        </main>
         <Footer />
+        <BackToTop />
       </body>
     </html>
   );
