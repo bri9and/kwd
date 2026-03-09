@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -18,25 +18,44 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        scrolled
+          ? "bg-brg-dark/95 backdrop-blur-md shadow-lg border-b border-cream/10"
+          : "bg-brg-dark/80 backdrop-blur-sm"
+      )}
+    >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="font-serif text-xl font-bold text-brg tracking-tight">
-            Kiely
+        <Link href="/" className="group flex items-center gap-3">
+          <span className="font-serif text-2xl font-bold text-cream tracking-tight group-hover:text-burnt-orange transition-colors duration-200">
+            K
           </span>
-          <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground font-medium">
-            Web Design
-          </span>
+          <div className="flex flex-col leading-none">
+            <span className="text-sm font-semibold text-cream tracking-wide">
+              Kiely
+            </span>
+            <span className="text-[10px] uppercase tracking-[0.25em] text-cream/50 font-medium">
+              Web Design
+            </span>
+          </div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-1">
           {links.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="relative text-sm text-cream/70 hover:text-cream px-3 py-2 rounded-md hover:bg-cream/10 transition-all duration-200"
             >
               {link.label}
             </Link>
@@ -45,7 +64,7 @@ export function Header() {
             href="/contact"
             className={cn(
               buttonVariants({ size: "sm" }),
-              "bg-burnt-orange hover:bg-burnt-orange-light text-white"
+              "ml-3 bg-burnt-orange hover:bg-burnt-orange-light text-white shadow-md hover:shadow-lg transition-all duration-200"
             )}
           >
             Get a Quote
@@ -55,17 +74,17 @@ export function Header() {
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger className="md:hidden">
             <Button variant="ghost" size="icon" render={<span />}>
-              <Menu className="h-5 w-5" />
+              <Menu className="h-5 w-5 text-cream" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-72">
-            <nav className="flex flex-col gap-6 mt-8">
+          <SheetContent side="right" className="w-72 bg-brg-dark border-cream/10">
+            <nav className="flex flex-col gap-4 mt-8">
               {links.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className="text-lg text-foreground hover:text-brg transition-colors"
+                  className="text-lg text-cream/80 hover:text-cream hover:pl-2 transition-all duration-200"
                 >
                   {link.label}
                 </Link>

@@ -95,10 +95,10 @@ const monthlyPlans = [
 ];
 
 const addons = [
-  { name: "Drone Photography (exteriors & aerials)", price: "$195–$520" },
-  { name: "Drone Video (30–60s promo)", price: "$325–$975" },
+  { name: "Drone Photography (exteriors & aerials)", price: "$200/hr" },
+  { name: "Drone Video (30–60s promo)", price: "$1,000" },
   { name: "Golf Course Flyover (raw footage, per hole)", price: "$100" },
-  { name: "Full 18-Hole Package (clubhouse, facilities, editing, music, graphics)", price: "$5,000–$8,500" },
+  { name: "Full 18-Hole Package (clubhouse, facilities, editing, music, graphics)", price: "$3,600" },
   { name: "Ecommerce Integration", price: "$1,950–$6,500" },
   { name: "IT Consulting (network, systems, cloud, AI)", price: "$100/hr" },
 ];

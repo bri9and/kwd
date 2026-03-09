@@ -13,13 +13,13 @@ const droneServices = [
     icon: Camera,
     title: "Aerial Photography",
     desc: "High-resolution aerial photos of your property, business, or event. Perfect for website hero images, marketing materials, and social media.",
-    price: "$195–$520",
+    price: "$200/hr",
   },
   {
     icon: Video,
     title: "Promotional Video",
     desc: "Cinematic 30–60 second aerial video with professional editing. Ideal for landing pages, social ads, and Google Business profiles.",
-    price: "$325–$975",
+    price: "$1,000",
   },
   {
     icon: MapPin,
@@ -31,7 +31,7 @@ const droneServices = [
     icon: Shield,
     title: "Full 18-Hole Package",
     desc: "Complete course flyover including clubhouse, facilities, and all 18 holes. Professional editing, licensed music, hole-by-hole graphics (yardage, par, handicap), color grading, and delivery optimized for web, social, and broadcast.",
-    price: "$5,000–$8,500",
+    price: "$3,600",
   },
 ];
 
