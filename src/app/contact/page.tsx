@@ -73,6 +73,7 @@ export default function ContactPage() {
       phone: formData.get("phone") as string,
       business: formData.get("business") as string,
       website: formData.get("website") as string,
+      services: formData.getAll("services") as string[],
       message: formData.get("message") as string,
     };
 
@@ -356,6 +357,33 @@ export default function ContactPage() {
                           placeholder="www.example.com"
                           className="bg-cream/30"
                         />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Interested in</Label>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            "New Website",
+                            "Redesign",
+                            "Drone Photography",
+                            "Ecommerce",
+                            "Hosting & Support",
+                            "IT Consulting",
+                          ].map((service) => (
+                            <label
+                              key={service}
+                              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border border-warm-gray/50 bg-cream/30 hover:border-brg/30 cursor-pointer transition-colors text-sm has-[:checked]:bg-brg/5 has-[:checked]:border-brg/30 has-[:checked]:text-brg"
+                            >
+                              <input
+                                type="checkbox"
+                                name="services"
+                                value={service}
+                                className="sr-only"
+                              />
+                              <span>{service}</span>
+                            </label>
+                          ))}
+                        </div>
                       </div>
 
                       <div className="space-y-2">

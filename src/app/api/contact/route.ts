@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   const body = await request.json();
-  const { name, email, phone, business, website, message } = body;
+  const { name, email, phone, business, website, services, message } = body;
 
   if (!name || !email || !message) {
     return NextResponse.json(
@@ -17,6 +17,7 @@ export async function POST(request: Request) {
     phone: phone || "Not provided",
     business: business || "Not provided",
     website: website || "Not provided",
+    services: (services && services.length > 0) ? services.join(", ") : "Not specified",
     message,
     timestamp: new Date().toISOString(),
   };
@@ -62,6 +63,10 @@ export async function POST(request: Request) {
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Website</td>
                   <td style="padding: 8px 0;">${website || "Not provided"}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Interested In</td>
+                  <td style="padding: 8px 0;">${(services && services.length > 0) ? services.join(", ") : "Not specified"}</td>
                 </tr>
               </table>
               <div style="margin-top: 16px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e8e4df;">
