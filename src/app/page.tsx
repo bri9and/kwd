@@ -124,15 +124,15 @@ const processSteps = [
 const testimonials = [
   {
     quote:
-      "They took our outdated site and turned it into something we're genuinely proud of. The drone footage of the course is stunning.",
-    name: "Club Manager",
-    company: "Pittsburgh North GC",
+      "We needed a way to preserve our family's stories before they were lost. Kiely built us something beautiful and simple enough for my 80-year-old mother to use. The whole family contributes now.",
+    name: "Sarah M.",
+    company: "My Family Memory",
   },
   {
     quote:
-      "Finally, a web designer who actually listens. The site was delivered on time and the code is clean enough for our team to maintain.",
-    name: "Project Lead",
-    company: "WeatherMin.org",
+      "Our old site looked like it was built in 2010. Within three weeks we had a modern, fast site that actually helps tenants find what they need. Maintenance requests dropped 40% because the online form actually works now.",
+    name: "David K.",
+    company: "Rental Helper",
   },
 ];
 
@@ -419,7 +419,7 @@ export default function Home() {
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold text-brg-dark"
             >
-              What they say.
+              What our clients say.
             </motion.h2>
           </motion.div>
 
