@@ -502,6 +502,81 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Featured Project ── */}
+      <section className="py-24 bg-brg-dark text-cream relative overflow-hidden grain-overlay">
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-burnt-orange/5 rounded-full blur-3xl" />
+        <div className="max-w-6xl mx-auto px-6 relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+          >
+            <motion.p
+              variants={fadeUp}
+              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
+            >
+              Featured Project
+            </motion.p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-8">
+              <motion.div variants={fadeUp}>
+                <a
+                  href="https://pittsburghnorthgc.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group"
+                >
+                  <div className="aspect-video rounded-xl bg-gradient-to-br from-brg/30 to-brg/10 border border-cream/10 overflow-hidden relative">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <Globe className="h-12 w-12 text-cream/10 group-hover:text-cream/20 transition-colors mb-3" />
+                      <span className="text-cream/20 text-sm font-medium">pittsburghnorthgc.com</span>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-brg-dark/60 to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium bg-burnt-orange/10 px-2 py-1 rounded">
+                        Golf Course
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </motion.div>
+              <motion.div variants={fadeUp}>
+                <h3 className="font-serif text-3xl md:text-4xl font-bold mb-4">
+                  Pittsburgh North Golf Club
+                </h3>
+                <p className="text-cream/60 leading-relaxed mb-6">
+                  A complete website rebuild for one of Western Pennsylvania&apos;s
+                  premier golf courses. Custom tee time integration, membership portal,
+                  and aerial drone footage of all 18 holes bring the course to life online.
+                </p>
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="bg-cream/5 rounded-lg p-4 border border-cream/10">
+                    <p className="text-burnt-orange font-serif text-2xl font-bold">18</p>
+                    <p className="text-cream/40 text-xs mt-1">Holes Filmed</p>
+                  </div>
+                  <div className="bg-cream/5 rounded-lg p-4 border border-cream/10">
+                    <p className="text-burnt-orange font-serif text-2xl font-bold">2 wks</p>
+                    <p className="text-cream/40 text-xs mt-1">Delivered</p>
+                  </div>
+                </div>
+                <a
+                  href="https://pittsburghnorthgc.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn(
+                    buttonVariants({ variant: "outline" }),
+                    "border-cream/20 text-cream hover:bg-cream/10"
+                  )}
+                >
+                  Visit Live Site <ExternalLink className="ml-2 h-4 w-4" />
+                </a>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ── Portfolio ── */}
       <section id="work" className="py-24 bg-white relative">
         <div className="max-w-6xl mx-auto px-6">
@@ -907,6 +982,39 @@ export default function Home() {
             >
               Get in Touch <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── Built With ── */}
+      <section className="py-16 bg-white border-t border-warm-gray/30">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+            className="text-center"
+          >
+            <motion.p
+              variants={fadeUp}
+              className="text-muted-foreground text-xs uppercase tracking-[0.2em] mb-8"
+            >
+              Built with industry-leading technology
+            </motion.p>
+            <motion.div
+              variants={fadeUp}
+              className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4"
+            >
+              {["Next.js", "React", "TypeScript", "Tailwind CSS", "Vercel", "Node.js"].map((tech) => (
+                <span
+                  key={tech}
+                  className="text-sm font-medium text-brg/25 hover:text-brg/60 transition-colors duration-300"
+                >
+                  {tech}
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
