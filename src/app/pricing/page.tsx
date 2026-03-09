@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   Check,
@@ -10,6 +11,7 @@ import {
   Code2,
   Star,
   Zap,
+  Calculator,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -152,6 +154,100 @@ const guarantees = [
     desc: "Free bug fixes and adjustments for 30 days after launch.",
   },
 ];
+
+const estimatorOptions = [
+  { label: "Website Size", options: [
+    { name: "Small (3-5 pages)", price: 1650 },
+    { name: "Medium (5-10 pages)", price: 2750 },
+    { name: "Large (10+ pages)", price: 5500 },
+  ]},
+  { label: "Add Drone Content?", options: [
+    { name: "No drone content", price: 0 },
+    { name: "Aerial photos ($200)", price: 200 },
+    { name: "Promo video ($1,000)", price: 1000 },
+    { name: "Full 18-hole package ($3,600)", price: 3600 },
+  ]},
+  { label: "Monthly Plan?", options: [
+    { name: "No monthly plan", price: 0 },
+    { name: "Basic Hosting ($32/mo)", price: 32 },
+    { name: "Care Plan ($97/mo)", price: 97 },
+    { name: "Growth Plan ($195/mo)", price: 195 },
+  ]},
+];
+
+function ProjectEstimator() {
+  const [selections, setSelections] = useState([0, 0, 0]);
+
+  const handleSelect = (groupIdx: number, optionIdx: number) => {
+    const next = [...selections];
+    next[groupIdx] = optionIdx;
+    setSelections(next);
+  };
+
+  const oneTime = estimatorOptions[0].options[selections[0]].price +
+    estimatorOptions[1].options[selections[1]].price;
+  const monthly = estimatorOptions[2].options[selections[2]].price;
+
+  return (
+    <div className="bg-cream/50 rounded-xl border border-warm-gray/50 p-8">
+      <div className="space-y-8">
+        {estimatorOptions.map((group, gi) => (
+          <div key={group.label}>
+            <p className="text-sm font-medium text-brg-dark mb-3">
+              {group.label}
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {group.options.map((option, oi) => (
+                <button
+                  key={option.name}
+                  onClick={() => handleSelect(gi, oi)}
+                  className={cn(
+                    "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border",
+                    selections[gi] === oi
+                      ? "bg-brg text-cream border-brg shadow-md"
+                      : "bg-white text-brg-dark border-warm-gray/50 hover:border-brg/30"
+                  )}
+                >
+                  {option.name}
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 pt-8 border-t border-warm-gray/50">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p className="text-sm text-muted-foreground">Estimated project cost</p>
+            <div className="flex items-baseline gap-2">
+              <span className="font-serif text-3xl font-bold text-brg-dark">
+                ${oneTime.toLocaleString()}
+              </span>
+              {monthly > 0 && (
+                <span className="text-muted-foreground text-sm">
+                  + ${monthly}/mo
+                </span>
+              )}
+            </div>
+          </div>
+          <Link
+            href="/contact"
+            className={cn(
+              buttonVariants({ size: "sm" }),
+              "bg-brg hover:bg-brg-light text-cream"
+            )}
+          >
+            Get Exact Quote <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
+        </div>
+        <p className="text-xs text-muted-foreground mt-3">
+          This is an estimate only. Final pricing may vary based on project specifics.
+        </p>
+      </div>
+    </div>
+  );
+}
 
 export default function PricingPage() {
   return (
@@ -457,6 +553,47 @@ export default function PricingPage() {
                 Get a Custom Quote <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Quick Estimator */}
+      <section className="py-24 bg-white">
+        <div className="max-w-3xl mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={stagger}
+            className="text-center mb-12"
+          >
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 mb-3">
+              <Calculator className="h-4 w-4 text-burnt-orange" />
+              <span className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                Quick Estimate
+              </span>
+            </motion.div>
+            <motion.h2
+              variants={fadeUp}
+              className="font-serif text-3xl md:text-4xl font-bold text-brg-dark"
+            >
+              Estimate your project.
+            </motion.h2>
+            <motion.p
+              variants={fadeUp}
+              className="text-muted-foreground mt-3"
+            >
+              Select what you need for a rough ballpark. Final pricing after consultation.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+          >
+            <ProjectEstimator />
           </motion.div>
         </div>
       </section>
