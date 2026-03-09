@@ -463,7 +463,9 @@ export default function AboutPage() {
 
       {/* CTA */}
       <section className="py-24 bg-brg-dark text-cream relative overflow-hidden grain-overlay">
-        <div className="max-w-3xl mx-auto px-6 text-center">
+        <div className="absolute inset-0 bg-grid-pattern-light" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-burnt-orange/10 rounded-full blur-3xl" />
+        <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -472,19 +474,19 @@ export default function AboutPage() {
           >
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-3xl md:text-4xl font-bold text-brg-dark mb-6"
+              className="font-serif text-3xl md:text-4xl font-bold mb-6"
             >
               Ready to work together?
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-muted-foreground text-lg leading-relaxed mb-8"
+              className="text-cream/60 text-lg leading-relaxed mb-8"
             >
               Whether you need a brand new website, a redesign, or drone
               photography, we&apos;d love to hear from you. Every conversation starts
               with understanding your goals.
             </motion.p>
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/contact"
                 className={cn(
@@ -493,6 +495,12 @@ export default function AboutPage() {
                 )}
               >
                 Start a Conversation <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+              <Link
+                href="/#work"
+                className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-all duration-300"
+              >
+                See Our Work
               </Link>
             </motion.div>
           </motion.div>
