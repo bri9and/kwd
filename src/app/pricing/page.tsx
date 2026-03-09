@@ -12,8 +12,8 @@ import { fadeUp, stagger } from "@/lib/animations";
 const designTiers = [
   {
     name: "Starter",
-    price: "$3,000",
-    priceSuffix: "–$5,000",
+    price: "$1,950",
+    priceSuffix: "–$3,250",
     desc: "Perfect for small businesses that need a clean, modern online presence.",
     features: [
       "3–5 page custom website",
@@ -27,8 +27,8 @@ const designTiers = [
   },
   {
     name: "Professional",
-    price: "$5,000",
-    priceSuffix: "–$10,000",
+    price: "$3,250",
+    priceSuffix: "–$6,500",
     desc: "For businesses ready for a serious online upgrade with advanced features.",
     features: [
       "5–10 page custom website",
@@ -44,8 +44,8 @@ const designTiers = [
   },
   {
     name: "Premium",
-    price: "$10,000",
-    priceSuffix: "–$20,000",
+    price: "$6,500",
+    priceSuffix: "–$13,000",
     desc: "Full-service build with ecommerce, integrations, and brand strategy.",
     features: [
       "10+ page custom website",
@@ -64,7 +64,7 @@ const designTiers = [
 const monthlyPlans = [
   {
     name: "Basic Hosting",
-    price: "$49",
+    price: "$32",
     features: [
       "Managed hosting",
       "SSL certificate",
@@ -74,7 +74,7 @@ const monthlyPlans = [
   },
   {
     name: "Care Plan",
-    price: "$149",
+    price: "$97",
     features: [
       "Everything in Basic",
       "Security scanning",
@@ -85,7 +85,7 @@ const monthlyPlans = [
   },
   {
     name: "Growth Plan",
-    price: "$299",
+    price: "$195",
     features: [
       "Everything in Care",
       "CDN & DDoS protection",
@@ -98,12 +98,12 @@ const monthlyPlans = [
 ];
 
 const addons = [
-  { name: "Drone Photography (exteriors & aerials)", price: "$300–$800" },
-  { name: "Drone Video (30–60s promo)", price: "$500–$1,500" },
-  { name: "Golf Course Flyover (per hole)", price: "$150–$350" },
-  { name: "Full 18-Hole Flyover Package", price: "$2,700–$5,000" },
-  { name: "Ecommerce Integration", price: "$3,000–$10,000" },
-  { name: "IT Consulting (network, systems, cloud, AI)", price: "$150/hr" },
+  { name: "Drone Photography (exteriors & aerials)", price: "$195–$520" },
+  { name: "Drone Video (30–60s promo)", price: "$325–$975" },
+  { name: "Golf Course Flyover (per hole)", price: "$100–$225" },
+  { name: "Full 18-Hole Flyover Package", price: "$1,750–$3,250" },
+  { name: "Ecommerce Integration", price: "$1,950–$6,500" },
+  { name: "IT Consulting (network, systems, cloud, AI)", price: "$100/hr" },
 ];
 
 export default function PricingPage() {
@@ -330,7 +330,7 @@ export default function PricingPage() {
             className="text-center mt-12"
           >
             <p className="text-muted-foreground text-sm mb-6">
-              Ad-hoc support outside of a plan is available at $125/hour.
+              Ad-hoc support outside of a plan is available at $80/hour.
             </p>
             <Link
               href="/contact"
