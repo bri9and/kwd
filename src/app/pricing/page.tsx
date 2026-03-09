@@ -13,7 +13,6 @@ const designTiers = [
   {
     name: "Starter",
     price: "$1,650",
-    priceSuffix: "–$2,750",
     desc: "Perfect for small businesses that need a clean, modern online presence.",
     features: [
       "3–5 page custom website",
@@ -27,7 +26,6 @@ const designTiers = [
   {
     name: "Professional",
     price: "$2,750",
-    priceSuffix: "–$5,500",
     desc: "For businesses ready for a serious online upgrade with advanced features.",
     features: [
       "5–10 page custom website",
@@ -43,7 +41,6 @@ const designTiers = [
   {
     name: "Premium",
     price: "$5,500",
-    priceSuffix: "–$11,000",
     desc: "Full-service build with ecommerce, integrations, and brand strategy.",
     features: [
       "10+ page custom website",
@@ -173,9 +170,6 @@ export default function PricingPage() {
                     <div className="mt-4 mb-2">
                       <span className="text-3xl font-bold text-brg-dark">
                         {tier.price}
-                      </span>
-                      <span className="text-muted-foreground text-lg">
-                        {tier.priceSuffix}
                       </span>
                     </div>
                     <p className="text-muted-foreground text-sm mb-6">
