@@ -13,25 +13,25 @@ const droneServices = [
     icon: Camera,
     title: "Aerial Photography",
     desc: "High-resolution aerial photos of your property, business, or event. Perfect for website hero images, marketing materials, and social media.",
-    price: "$300–$800",
+    price: "$195–$520",
   },
   {
     icon: Video,
     title: "Promotional Video",
     desc: "Cinematic 30–60 second aerial video with professional editing. Ideal for landing pages, social ads, and Google Business profiles.",
-    price: "$500–$1,500",
+    price: "$325–$975",
   },
   {
     icon: MapPin,
     title: "Golf Course Flyovers",
     desc: "Hole-by-hole aerial flyover footage. Give your members and visitors a bird's-eye preview of every hole on your course.",
-    price: "$150–$350/hole",
+    price: "$100–$225/hole",
   },
   {
     icon: Shield,
     title: "Full Course Package",
     desc: "Complete 18-hole flyover with professional editing, voice-over ready, and optimized for web and social media delivery.",
-    price: "$2,700–$5,000",
+    price: "$1,750–$3,250",
   },
 ];
 

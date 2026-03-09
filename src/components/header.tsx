@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ const links = [
   { href: "/#work", label: "Work" },
   { href: "/#process", label: "Process" },
   { href: "/pricing", label: "Pricing" },
+  { href: "/drone", label: "Drone" },
   { href: "/contact", label: "Contact" },
 ];
 

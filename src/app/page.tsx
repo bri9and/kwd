@@ -13,6 +13,7 @@ import {
   Code2,
   Quote,
   Lightbulb,
+  ExternalLink,
 } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -58,30 +59,42 @@ const portfolio = [
     url: "pittsburghnorthgc.com",
     category: "Golf Course",
     desc: "Full course website with tee time integration and membership portal.",
+    color: "from-brg/20 to-brg-dark/30",
   },
   {
     name: "My Family Memory",
     url: "myfamilymemory.com",
     category: "Web Application",
     desc: "Digital platform for preserving and sharing family stories and memories.",
+    color: "from-blue-900/20 to-blue-950/30",
   },
   {
     name: "WeatherMin",
     url: "weathermin.org",
     category: "Non-Profit",
     desc: "Weather monitoring organization with real-time data visualization.",
+    color: "from-sky-900/20 to-sky-950/30",
   },
   {
     name: "Rental Helper",
     url: "rental-helper.com",
     category: "SaaS",
     desc: "Property management tool for landlords and tenants.",
+    color: "from-amber-900/20 to-amber-950/30",
+  },
+  {
+    name: "Vote for Charlie",
+    url: "voteforcharlie.org",
+    category: "Campaign",
+    desc: "Political campaign website with donor engagement and event scheduling.",
+    color: "from-red-900/20 to-red-950/30",
   },
   {
     name: "107 Certified",
     url: "107certified.me",
     category: "Professional",
     desc: "FAA drone certification resources and training portal.",
+    color: "from-slate-800/20 to-slate-900/30",
   },
 ];
 
@@ -177,10 +190,7 @@ export default function Home() {
             </Link>
             <Link
               href="/#work"
-              className={cn(
-                buttonVariants({ variant: "outline", size: "lg" }),
-                "border-cream/20 text-cream hover:bg-cream/10 text-base px-8"
-              )}
+              className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-colors"
             >
               See Our Work
             </Link>
@@ -289,25 +299,34 @@ export default function Home() {
           >
             {portfolio.map((project) => (
               <motion.div key={project.url} variants={fadeUp}>
-                <Card className="group h-full border-warm-gray/50 hover:border-brg/30 transition-all hover:shadow-lg bg-cream/50">
-                  <CardContent className="p-8">
-                    <div className="flex items-center justify-between mb-4">
-                      <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium">
-                        {project.category}
+                <a
+                  href={`https://${project.url}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block group"
+                >
+                  <Card className="h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-white overflow-hidden">
+                    <div className={`h-32 bg-gradient-to-br ${project.color} flex items-center justify-center`}>
+                      <span className="font-serif text-lg font-bold text-brg-dark/60 group-hover:text-brg-dark transition-colors">
+                        {project.url}
                       </span>
-                      <Globe className="h-4 w-4 text-muted-foreground group-hover:text-brg transition-colors" />
                     </div>
-                    <h3 className="font-serif text-xl font-semibold text-brg-dark mb-2">
-                      {project.name}
-                    </h3>
-                    <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
-                      {project.desc}
-                    </p>
-                    <span className="text-xs text-brg font-medium">
-                      {project.url}
-                    </span>
-                  </CardContent>
-                </Card>
+                    <CardContent className="p-6">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs uppercase tracking-wider text-burnt-orange font-medium">
+                          {project.category}
+                        </span>
+                        <ExternalLink className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                      <h3 className="font-serif text-lg font-semibold text-brg-dark mb-2 group-hover:text-brg transition-colors">
+                        {project.name}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {project.desc}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </a>
               </motion.div>
             ))}
           </motion.div>
