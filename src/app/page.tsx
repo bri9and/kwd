@@ -79,6 +79,76 @@ const portfolio = [
     desc: "Full course website with tee time integration and membership portal.",
   },
   {
+    name: "Kowalski & Sons Plumbing",
+    url: "kowalskiplumbing.com",
+    href: "/sites/kowalski-sons-plumbing",
+    category: "Plumbing",
+    desc: "Family-owned plumbing since 1974. Emergency service, drain cleaning, and bathroom remodeling across Allegheny County.",
+  },
+  {
+    name: "Steel City Electric Co.",
+    url: "steelcityelectric.com",
+    href: "/sites/steel-city-electric",
+    category: "Electrical",
+    desc: "Licensed electrical contractors. Residential wiring, EV chargers, generators, and commercial buildouts.",
+  },
+  {
+    name: "Ridgeline Roofing & Exteriors",
+    url: "ridgelineroofing.com",
+    href: "/sites/ridgeline-roofing",
+    category: "Roofing",
+    desc: "GAF Master Elite certified. Shingle and metal roofing, storm damage repair, siding and gutters.",
+  },
+  {
+    name: "Mon Valley Pest Solutions",
+    url: "monvalleypest.com",
+    href: "/sites/mon-valley-pest",
+    category: "Pest Control",
+    desc: "Eco-friendly pest control for the Mon Valley and South Hills. Termites, rodents, mosquitoes, and wildlife.",
+  },
+  {
+    name: "Confluence Golf Club",
+    url: "confluencegolfclub.com",
+    href: "/sites/confluence-golf-club",
+    category: "Golf Course",
+    desc: "Semi-private 18-hole course in Moon Township. Tee times, memberships, events, and a full-service clubhouse.",
+  },
+  {
+    name: "Iron City Martial Arts",
+    url: "ironcitymartialarts.com",
+    href: "/sites/iron-city-martial-arts",
+    category: "Martial Arts",
+    desc: "BJJ, Muay Thai, and boxing in Lawrenceville. Kids and adult programs with first week free.",
+  },
+  {
+    name: "Three Rivers Pickleball Club",
+    url: "3riverspickleball.com",
+    href: "/sites/three-rivers-pickleball",
+    category: "Sports & Rec",
+    desc: "12 indoor courts, pro shop, and craft beer lounge. Open play, leagues, and tournaments in Robinson Township.",
+  },
+  {
+    name: "Allegheny Heritage Homes",
+    url: "alleghenyheritagehomes.com",
+    href: "/sites/allegheny-heritage-homes",
+    category: "Home Builder",
+    desc: "Custom homes on your lot. In-house architect, energy-efficient construction, and fixed-price contracts.",
+  },
+  {
+    name: "Fort Pitt Property Group",
+    url: "fortpittproperty.com",
+    href: "/sites/fort-pitt-property",
+    category: "Property Mgmt",
+    desc: "Full-service property management. 600+ units, 98% occupancy. Tenant placement, maintenance, and reporting.",
+  },
+  {
+    name: "Belmont Interior Design Studio",
+    url: "belmontdesignstudio.com",
+    href: "/sites/belmont-interior-design",
+    category: "Interior Design",
+    desc: "Boutique residential design in Shadyside. Kitchens, living spaces, and whole-home renovations with Pittsburgh character.",
+  },
+  {
     name: "My Family Memory",
     url: "myfamilymemory.com",
     category: "Web Application",
@@ -165,9 +235,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 100, suffix: "+", label: "Projects Completed" },
+  { value: 16, suffix: "+", label: "Projects Delivered" },
   { value: 100, suffix: "%", label: "Customer Satisfaction" },
-  { value: 25, suffix: "", label: "Years Experience" },
+  { value: 5, suffix: "+", label: "Years Experience" },
 ];
 
 const faqs = [
@@ -702,9 +772,8 @@ export default function Home() {
             {portfolio.map((project) => (
               <motion.div key={project.url} variants={fadeUp}>
                 <a
-                  href={`https://${project.url}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={(project as { href?: string }).href ?? `https://${project.url}`}
+                  {...((project as { href?: string }).href ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                   className="block group"
                 >
                   <Card className="card-shine group h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-cream/30">
