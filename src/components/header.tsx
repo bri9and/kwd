@@ -48,7 +48,7 @@ export function Header() {
           <span className="font-serif text-2xl font-bold text-cream tracking-tight group-hover:text-burnt-orange transition-colors duration-200">
             KWD
           </span>
-          <span className="hidden sm:block text-[11px] uppercase tracking-[0.2em] text-cream/50 font-medium">
+          <span className="hidden sm:block text-[11px] uppercase tracking-[0.2em] text-cream/70 font-medium">
             Kiely Web Design
           </span>
         </Link>
@@ -62,7 +62,7 @@ export function Header() {
                 "relative text-sm px-3 py-2 rounded-md transition-all duration-200 hover:text-cream hover:bg-cream/10",
                 isActive(link.href)
                   ? "text-cream bg-cream/10"
-                  : "text-cream/70"
+                  : "text-cream/90"
               )}
             >
               {link.label}
@@ -99,7 +99,7 @@ export function Header() {
                     "text-lg py-2 px-3 rounded-lg transition-all duration-200 hover:text-cream hover:bg-cream/5",
                     isActive(link.href)
                       ? "text-cream bg-cream/10"
-                      : "text-cream/80"
+                      : "text-cream/90"
                   )}
                 >
                   {link.label}
