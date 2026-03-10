@@ -287,87 +287,142 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden">
         <div className="absolute inset-0 bg-brg-dark" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,66,37,0.8)_0%,_transparent_60%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(200,90,26,0.15)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(0,92,53,0.6)_0%,_transparent_50%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(200,90,26,0.12)_0%,_transparent_40%)]" />
         <div className="absolute inset-0 bg-grid-pattern-light" />
 
-        {/* Floating decorative elements */}
-        <div className="absolute top-1/4 left-[10%] w-64 h-64 rounded-full bg-brg/20 blur-3xl animate-float-slow" />
-        <div className="absolute bottom-1/3 right-[15%] w-48 h-48 rounded-full bg-burnt-orange/10 blur-3xl animate-float-reverse" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-brg/5 blur-3xl animate-pulse-glow" />
+        {/* KWD watermark */}
+        <div className="absolute -right-16 top-1/2 -translate-y-1/2 select-none pointer-events-none hidden lg:block">
+          <span className="font-serif text-[22rem] xl:text-[28rem] font-bold text-cream/[0.02] leading-none tracking-tighter">
+            KWD
+          </span>
+        </div>
 
+        {/* Vertical accent line */}
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-          className="relative z-10 max-w-4xl mx-auto px-6 text-center"
-        >
-          <motion.div
-            variants={fadeUp}
-            className="inline-flex items-center gap-2 bg-cream/5 border border-cream/10 rounded-full px-4 py-1.5 mb-8"
-          >
-            <div className="w-2 h-2 rounded-full bg-burnt-orange animate-pulse" />
-            <span className="text-cream/70 text-sm">Boutique Web Design Studio</span>
-          </motion.div>
+          initial={{ scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-6 md:left-12 lg:left-24 top-32 bottom-32 w-px bg-gradient-to-b from-transparent via-burnt-orange/40 to-transparent origin-top hidden md:block"
+        />
 
-          <motion.h1
-            variants={fadeUp}
-            className="font-serif text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-cream leading-[1.05] mb-8"
-          >
-            Your website
-            <br />
-            <span className="text-burnt-orange-light">should work</span>
-            <br />
-            as hard as you do.
-          </motion.h1>
+        {/* Floating accent shapes */}
+        <div className="absolute top-1/4 right-[20%] w-48 h-48 rounded-full bg-brg/20 blur-3xl animate-float-slow" />
+        <div className="absolute bottom-1/4 left-[40%] w-64 h-64 rounded-full bg-burnt-orange/8 blur-3xl animate-float-reverse" />
 
-          <motion.p
-            variants={fadeUp}
-            className="text-cream/60 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
-          >
-            We take outdated websites and make them modern. Custom-built,
-            hand-coded, and personally delivered. Serving golf courses,
-            restaurants, and local businesses across Pittsburgh and beyond.
-          </motion.p>
-
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className={cn(
-                buttonVariants({ size: "lg" }),
-                "bg-burnt-orange hover:bg-burnt-orange-light text-white text-base px-8 shadow-lg shadow-burnt-orange/20 hover:shadow-xl hover:shadow-burnt-orange/30 transition-all duration-300"
-              )}
+        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-24 w-full py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <motion.div
+              initial="hidden"
+              animate="visible"
+              variants={stagger}
+              className="lg:col-span-7"
             >
-              Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-            <Link
-              href="/#work"
-              className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-all duration-300"
-            >
-              See Our Work
-            </Link>
-          </motion.div>
+              <motion.div
+                variants={fadeUp}
+                className="inline-flex items-center gap-2 bg-cream/5 border border-cream/10 rounded-full px-4 py-1.5 mb-10"
+              >
+                <div className="w-2 h-2 rounded-full bg-burnt-orange animate-pulse" />
+                <span className="text-cream/70 text-sm tracking-wide">Boutique Web Design Studio</span>
+              </motion.div>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-cream/40 text-sm"
-          >
-            <div className="flex items-center gap-2">
-              <Monitor className="h-4 w-4" />
-              <span>Custom Code</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Smartphone className="h-4 w-4" />
-              <span>Mobile First</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <ShieldCheck className="h-4 w-4" />
-              <span>Secure Hosting</span>
-            </div>
-          </motion.div>
-        </motion.div>
+              <motion.h1
+                variants={fadeUp}
+                className="font-serif font-bold text-cream leading-[1.02] mb-8"
+              >
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl">Your website</span>
+                <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-burnt-orange-light mt-1">should work</span>
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl mt-1">as hard as you do.</span>
+              </motion.h1>
+
+              <motion.p
+                variants={fadeUp}
+                className="text-cream/55 text-lg md:text-xl max-w-xl mb-10 leading-relaxed"
+              >
+                We take outdated websites and make them modern. Custom-built,
+                hand-coded, and personally delivered. Serving golf courses,
+                restaurants, and local businesses across Pittsburgh and beyond.
+              </motion.p>
+
+              <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4">
+                <Link
+                  href="/contact"
+                  className={cn(
+                    buttonVariants({ size: "lg" }),
+                    "bg-burnt-orange hover:bg-burnt-orange-light text-white text-base px-8 shadow-lg shadow-burnt-orange/20 hover:shadow-xl hover:shadow-burnt-orange/30 transition-all duration-300"
+                  )}
+                >
+                  Start Your Project <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                <Link
+                  href="/#work"
+                  className="inline-flex items-center justify-center h-9 px-8 text-base font-medium rounded-lg border border-cream/30 text-cream hover:bg-cream/10 transition-all duration-300"
+                >
+                  See Our Work
+                </Link>
+              </motion.div>
+
+              <motion.div
+                variants={fadeUp}
+                className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-2 text-cream/30 text-sm"
+              >
+                <div className="flex items-center gap-2">
+                  <Monitor className="h-4 w-4" />
+                  <span>Custom Code</span>
+                </div>
+                <span className="hidden sm:inline text-cream/15">|</span>
+                <div className="flex items-center gap-2">
+                  <Smartphone className="h-4 w-4" />
+                  <span>Mobile First</span>
+                </div>
+                <span className="hidden sm:inline text-cream/15">|</span>
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4" />
+                  <span>Secure Hosting</span>
+                </div>
+              </motion.div>
+            </motion.div>
+
+            {/* Right column — stacked geometric cards */}
+            <motion.div
+              initial={{ opacity: 0, x: 60, rotate: 2 }}
+              animate={{ opacity: 1, x: 0, rotate: 0 }}
+              transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-5 hidden lg:block"
+            >
+              <div className="relative">
+                <div className="relative w-full aspect-[4/5]">
+                  {/* Back card */}
+                  <div className="absolute top-8 right-0 w-[85%] h-[75%] rounded-2xl bg-brg/30 border border-cream/10 backdrop-blur-sm hero-card-back" />
+                  {/* Middle card */}
+                  <div className="absolute top-4 right-4 w-[85%] h-[75%] rounded-2xl bg-brg/20 border border-cream/8 backdrop-blur-sm hero-card-mid" />
+                  {/* Front card */}
+                  <div className="absolute top-0 right-8 w-[85%] h-[75%] rounded-2xl bg-gradient-to-br from-cream/5 to-cream/[0.02] border border-cream/10 backdrop-blur-md p-8 flex flex-col justify-between">
+                    <div>
+                      <div className="w-10 h-10 rounded-lg bg-burnt-orange/20 flex items-center justify-center mb-6">
+                        <Code2 className="h-5 w-5 text-burnt-orange" />
+                      </div>
+                      <p className="font-serif text-cream/80 text-lg font-medium mb-2">Hand-crafted code</p>
+                      <p className="text-cream/30 text-sm leading-relaxed">Every site built from scratch. No templates, no shortcuts.</p>
+                    </div>
+                    <div className="flex items-center gap-3 mt-auto">
+                      <div className="flex -space-x-2">
+                        <div className="w-8 h-8 rounded-full bg-brg border-2 border-brg-dark flex items-center justify-center text-cream text-xs font-bold">P</div>
+                        <div className="w-8 h-8 rounded-full bg-burnt-orange border-2 border-brg-dark flex items-center justify-center text-cream text-xs font-bold">M</div>
+                        <div className="w-8 h-8 rounded-full bg-brg-light border-2 border-brg-dark flex items-center justify-center text-cream text-xs font-bold">R</div>
+                      </div>
+                      <span className="text-cream/30 text-xs">Happy clients</span>
+                    </div>
+                  </div>
+                  {/* Floating accent orb */}
+                  <div className="absolute -bottom-4 -left-4 w-24 h-24 rounded-full bg-burnt-orange/20 blur-xl animate-pulse-glow" />
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.div
@@ -415,31 +470,32 @@ export default function Home() {
       </section>
 
       {/* ── Services ── */}
-      <section id="services" className="py-24 bg-cream relative">
+      <section id="services" className="py-24 bg-cream relative overflow-hidden">
         <div className="absolute inset-0 bg-dot-pattern" />
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-brg/[0.02] to-transparent" />
         <div className="max-w-6xl mx-auto px-6 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
-            className="text-center mb-16"
+            className="mb-16"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              What We Do
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4">
+              <div className="h-px w-12 bg-burnt-orange" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                What We Do
+              </p>
+            </motion.div>
             <motion.h2
               variants={fadeUp}
-              className="font-serif text-4xl md:text-5xl font-bold text-brg-dark"
+              className="font-serif text-4xl md:text-5xl font-bold text-brg-dark max-w-xl"
             >
               Everything your business needs online.
             </motion.h2>
             <motion.p
               variants={fadeUp}
-              className="text-muted-foreground mt-4 max-w-2xl mx-auto"
+              className="text-muted-foreground mt-4 max-w-2xl"
             >
               From initial design to ongoing support, we handle every aspect of
               your digital presence so you can focus on running your business.
@@ -451,23 +507,54 @@ export default function Home() {
             whileInView="visible"
             viewport={{ once: true, margin: "-50px" }}
             variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
           >
             {services.map((service, i) => (
-              <motion.div key={service.title} variants={fadeUp}>
-                <Card className="card-shine h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-white group">
-                  <CardContent className="p-8">
-                    <div className="w-12 h-12 rounded-xl bg-brg/5 flex items-center justify-center mb-5 group-hover:bg-brg/10 transition-colors">
-                      <service.icon className="h-6 w-6 text-brg" />
+              <motion.div
+                key={service.title}
+                variants={fadeUp}
+                className={cn(
+                  i === 0 && "md:col-span-2 lg:col-span-2"
+                )}
+              >
+                <div className={cn(
+                  "group relative h-full rounded-xl border transition-all duration-500 overflow-hidden",
+                  i === 0
+                    ? "bg-brg-dark text-cream border-brg-dark hover:border-brg"
+                    : "bg-white border-warm-gray/50 hover:border-brg/30 hover:shadow-xl"
+                )}>
+                  {/* Large background number */}
+                  <span className={cn(
+                    "absolute -right-4 -top-6 font-serif text-[8rem] font-bold leading-none select-none pointer-events-none transition-opacity duration-500",
+                    i === 0 ? "text-cream/[0.03]" : "text-brg/[0.03] group-hover:text-brg/[0.06]"
+                  )}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  {/* Accent bar */}
+                  <div className="absolute top-0 left-0 w-1 h-0 group-hover:h-full bg-burnt-orange transition-all duration-500 rounded-full" />
+                  <div className={cn("relative p-8", i === 0 && "md:p-10")}>
+                    <div className={cn(
+                      "w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors duration-300",
+                      i === 0
+                        ? "bg-cream/10 group-hover:bg-cream/15"
+                        : "bg-brg/5 group-hover:bg-brg/10"
+                    )}>
+                      <service.icon className={cn("h-6 w-6", i === 0 ? "text-burnt-orange-light" : "text-brg")} />
                     </div>
-                    <h3 className="font-serif text-xl font-semibold text-brg-dark mb-3">
+                    <h3 className={cn(
+                      "font-serif text-xl font-semibold mb-3",
+                      i === 0 ? "text-cream md:text-2xl" : "text-brg-dark"
+                    )}>
                       {service.title}
                     </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
+                    <p className={cn(
+                      "text-sm leading-relaxed",
+                      i === 0 ? "text-cream/60 md:max-w-md" : "text-muted-foreground"
+                    )}>
                       {service.desc}
                     </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               </motion.div>
             ))}
           </motion.div>
@@ -517,12 +604,12 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              Featured Project
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4">
+              <div className="h-px w-12 bg-burnt-orange" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                Featured Project
+              </p>
+            </motion.div>
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-8">
               <motion.div variants={fadeUp}>
                 <a
@@ -592,12 +679,13 @@ export default function Home() {
             variants={stagger}
             className="text-center mb-16"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              Selected Work
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4 justify-center">
+              <div className="h-px w-12 bg-burnt-orange/50" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                Selected Work
+              </p>
+              <div className="h-px w-12 bg-burnt-orange/50" />
+            </motion.div>
             <motion.h2
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold text-brg-dark"
@@ -687,12 +775,13 @@ export default function Home() {
             variants={stagger}
             className="text-center mb-16"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              How It Works
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4 justify-center">
+              <div className="h-px w-12 bg-burnt-orange/40" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                How It Works
+              </p>
+              <div className="h-px w-12 bg-burnt-orange/40" />
+            </motion.div>
             <motion.h2
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold"
@@ -765,12 +854,12 @@ export default function Home() {
           >
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
               <div>
-                <motion.p
-                  variants={fadeUp}
-                  className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-                >
-                  Why KWD
-                </motion.p>
+                <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4">
+                  <div className="h-px w-12 bg-burnt-orange" />
+                  <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                    Why KWD
+                  </p>
+                </motion.div>
                 <motion.h2
                   variants={fadeUp}
                   className="font-serif text-4xl md:text-5xl font-bold text-brg-dark mb-8"
@@ -881,12 +970,13 @@ export default function Home() {
             variants={stagger}
             className="text-center mb-16"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              Client Feedback
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4 justify-center">
+              <div className="h-px w-12 bg-burnt-orange/50" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                Client Feedback
+              </p>
+              <div className="h-px w-12 bg-burnt-orange/50" />
+            </motion.div>
             <motion.h2
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold text-brg-dark"
@@ -943,12 +1033,13 @@ export default function Home() {
             variants={stagger}
             className="text-center mb-16"
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              Common Questions
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4 justify-center">
+              <div className="h-px w-12 bg-burnt-orange/50" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                Common Questions
+              </p>
+              <div className="h-px w-12 bg-burnt-orange/50" />
+            </motion.div>
             <motion.h2
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold text-brg-dark"
@@ -1037,12 +1128,13 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             variants={stagger}
           >
-            <motion.p
-              variants={fadeUp}
-              className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium mb-3"
-            >
-              About
-            </motion.p>
+            <motion.div variants={fadeUp} className="flex items-center gap-4 mb-4 justify-center">
+              <div className="h-px w-12 bg-burnt-orange/40" />
+              <p className="text-burnt-orange text-sm uppercase tracking-[0.25em] font-medium">
+                About
+              </p>
+              <div className="h-px w-12 bg-burnt-orange/40" />
+            </motion.div>
             <motion.h2
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold mb-8"

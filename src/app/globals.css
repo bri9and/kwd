@@ -392,6 +392,41 @@ textarea:focus-visible {
   transition: outline-offset 0.1s ease;
 }
 
+/* ── Service Card Accent ── */
+.service-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 0;
+  background: linear-gradient(180deg, #c85a1a, #e07020);
+  border-radius: 2px;
+  transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .service-accent-bar {
+  height: 100%;
+}
+
+/* ── Hero Geometric Cards ── */
+@keyframes card-float {
+  0%, 100% { transform: rotate(3deg) translateY(0); }
+  50% { transform: rotate(3deg) translateY(-8px); }
+}
+
+@keyframes card-float-alt {
+  0%, 100% { transform: rotate(-1deg) translateY(0); }
+  50% { transform: rotate(-1deg) translateY(-6px); }
+}
+
+.hero-card-back {
+  animation: card-float 7s ease-in-out infinite;
+}
+
+.hero-card-mid {
+  animation: card-float-alt 8s ease-in-out infinite;
+}
+
 /* ── Print Styles ── */
 @media print {
   header, footer, .back-to-top {
