@@ -59,10 +59,10 @@ export function Header() {
               key={link.href}
               href={link.href}
               className={cn(
-                "relative text-sm px-3 py-2 rounded-md transition-all duration-200",
+                "relative text-sm px-3 py-2 rounded-md transition-all duration-200 hover:text-cream hover:bg-cream/10",
                 isActive(link.href)
                   ? "text-cream bg-cream/10"
-                  : "text-cream/70 hover:text-cream hover:bg-cream/10"
+                  : "text-cream/70"
               )}
             >
               {link.label}
@@ -96,10 +96,10 @@ export function Header() {
                   href={link.href}
                   onClick={() => setOpen(false)}
                   className={cn(
-                    "text-lg py-2 px-3 rounded-lg transition-all duration-200",
+                    "text-lg py-2 px-3 rounded-lg transition-all duration-200 hover:text-cream hover:bg-cream/5",
                     isActive(link.href)
                       ? "text-cream bg-cream/10"
-                      : "text-cream/80 hover:text-cream hover:bg-cream/5"
+                      : "text-cream/80"
                   )}
                 >
                   {link.label}
