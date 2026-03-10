@@ -58,13 +58,6 @@ export default function PittsburghWebDesignPage() {
         <div className="absolute top-1/4 right-[10%] w-64 h-64 rounded-full bg-burnt-orange/10 blur-3xl" />
         <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
           <motion.div initial="hidden" animate="visible" variants={stagger}>
-            <motion.div
-              variants={fadeUp}
-              className="inline-flex items-center gap-2 bg-cream/5 border border-cream/10 rounded-full px-4 py-1.5 mb-6"
-            >
-              <MapPin className="h-3.5 w-3.5 text-burnt-orange" />
-              <span className="text-cream/70 text-sm">Pittsburgh, PA</span>
-            </motion.div>
             <motion.h1
               variants={fadeUp}
               className="font-serif text-4xl md:text-6xl font-bold mb-6"

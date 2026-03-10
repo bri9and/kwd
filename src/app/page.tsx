@@ -319,14 +319,6 @@ export default function Home() {
               variants={stagger}
               className="lg:col-span-7"
             >
-              <motion.div
-                variants={fadeUp}
-                className="inline-flex items-center gap-2 bg-cream/5 border border-cream/10 rounded-full px-4 py-1.5 mb-10"
-              >
-                <div className="w-2 h-2 rounded-full bg-burnt-orange animate-pulse" />
-                <span className="text-cream/70 text-sm tracking-wide">Boutique Web Design Studio</span>
-              </motion.div>
-
               <motion.h1
                 variants={fadeUp}
                 className="font-serif font-bold text-cream leading-[1.02] mb-8"
