@@ -165,10 +165,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 6, suffix: "+", label: "Projects Delivered" },
-  { value: 100, suffix: "%", label: "Client Satisfaction" },
-  { value: 5, suffix: "", label: "Years Experience" },
-  { value: 24, suffix: "hr", label: "Response Time" },
+  { value: 100, suffix: "+", label: "Projects Completed" },
+  { value: 100, suffix: "%", label: "Customer Satisfaction" },
+  { value: 25, suffix: "", label: "Years Experience" },
 ];
 
 const faqs = [
