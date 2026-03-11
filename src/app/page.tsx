@@ -77,6 +77,7 @@ const portfolio = [
     url: "pittsburghnorthgc.com",
     category: "Golf Course",
     desc: "Full course website with tee time integration and membership portal.",
+    image: "/sites/pittsburgh-north/hero.jpg",
   },
   {
     name: "Cirigliano Plumbing",
@@ -84,6 +85,8 @@ const portfolio = [
     href: "/sites/cirigliano-plumbing",
     category: "Plumbing",
     desc: "Family-owned South Hills plumber. 24/7 emergency service, trenchless sewer repair, and honest pricing — no middleman.",
+    image: "/sites/cirigliano/crew-work.jpg",
+    logo: "/sites/cirigliano/logo.png",
   },
   {
     name: "Nicholas Electric Co.",
@@ -91,6 +94,8 @@ const portfolio = [
     href: "/sites/nicholas-electric",
     category: "Electrical",
     desc: "Old-home electrical specialists since 1978. Knob & tube rewiring, EV chargers, and 24/7 emergency service. BBB A+, zero complaints.",
+    image: "/sites/nicholas-electric/hero.jpg",
+    logo: "/sites/nicholas-electric/logo.png",
   },
   {
     name: "Zeke & Son Roofing",
@@ -98,6 +103,8 @@ const portfolio = [
     href: "/sites/zeke-son-roofing",
     category: "Roofing",
     desc: "Three generations since 1949. Shingle, flat, and slate roofing. 2018 Post-Gazette Fan Favorites 1st Place. BBB A+.",
+    image: "/sites/zeke-son/slide1.jpg",
+    logo: "/sites/zeke-son/logo.png",
   },
   {
     name: "Patriot Pest Control",
@@ -105,6 +112,8 @@ const portfolio = [
     href: "/sites/patriot-pest-control",
     category: "Pest Control",
     desc: "Family-owned since 1995. Termites, bed bugs, rodents, and humane wildlife removal. VA/FHA mortgage inspections. BBB A+.",
+    image: "/sites/patriot-pest/termites.jpg",
+    logo: "/sites/patriot-pest/logo.png",
   },
   {
     name: "Grand View Golf Club",
@@ -112,6 +121,8 @@ const portfolio = [
     href: "/sites/grand-view-golf",
     category: "Golf Course",
     desc: "\"The Monster on the Mon.\" Public 18-hole course with skyline views, cliff drops, and on-site Italian steakhouse.",
+    image: "/sites/grand-view/hole14.jpg",
+    logo: "/sites/grand-view/logo.png",
   },
   {
     name: "Caliguri's Academy of Martial Arts",
@@ -119,6 +130,7 @@ const portfolio = [
     href: "/sites/caliguris-martial-arts",
     category: "Martial Arts",
     desc: "Birthplace of MMA in America. Grand Master Frank Caliguri, 10th-degree black belt. Training champions since 1971.",
+    image: "/sites/caliguris/stage.jpg",
   },
   {
     name: "Three Rivers Pickleball Club",
@@ -126,6 +138,8 @@ const portfolio = [
     href: "/sites/three-rivers-pickleball",
     category: "Sports & Rec",
     desc: "12 indoor courts, pro shop, and craft beer lounge. Open play, leagues, and tournaments in Robinson Township.",
+    image: "/sites/three-rivers-pickleball/hero.jpg",
+    logo: "/sites/three-rivers-pickleball/logo.jpg",
   },
   {
     name: "D'n A Custom Home Builders",
@@ -133,6 +147,8 @@ const portfolio = [
     href: "/sites/dna-custom-homes",
     category: "Home Builder",
     desc: "BuildZoom top 15%. Fully custom homes, owner-builder program, and design-build under one roof. BBB A+.",
+    image: "/sites/dna-homes/completed-home.png",
+    logo: "/sites/dna-homes/logo.png",
   },
   {
     name: "John C.R. Kelly Realty",
@@ -140,6 +156,7 @@ const portfolio = [
     href: "/sites/kelly-realty",
     category: "Property Mgmt",
     desc: "Multi-generational property management since 1960. 50+ active listings, in-house maintenance, certified appraiser. BBB A+.",
+    image: "/sites/kelly-realty/hero.jpg",
   },
   {
     name: "Inspirational Designs",
@@ -147,36 +164,45 @@ const portfolio = [
     href: "/sites/inspirational-designs",
     category: "Interior Design",
     desc: "Kitchen & bath design specialist in East Liberty. 84+ projects, VIP styling experience. \"We are an experience.\" BBB A+.",
+    image: "/sites/inspirational/kitchen1.jpg",
+    logo: "/sites/inspirational/logo.png",
   },
   {
     name: "My Family Memory",
     url: "myfamilymemory.com",
     category: "Web Application",
     desc: "Digital platform for preserving and sharing family stories and memories.",
+    image: "/sites/myfamilymemory/hero.png",
   },
   {
     name: "WeatherMin",
     url: "weathermin.org",
     category: "Non-Profit",
     desc: "Weather monitoring organization with real-time data visualization.",
+    image: "/sites/weathermin/hero.png",
+    logo: "/sites/weathermin/icon.png",
   },
   {
     name: "Rental Helper",
     url: "rental-helper.com",
     category: "SaaS",
     desc: "Property management tool for landlords and tenants.",
+    image: "/sites/rental-helper/hero.png",
+    logo: "/sites/rental-helper/logo.png",
   },
   {
     name: "Vote for Charlie",
     url: "voteforcharlie.org",
     category: "Campaign",
     desc: "Political campaign website with donor engagement and event scheduling.",
+    image: "/sites/voteforcharlie/portrait.jpg",
   },
   {
     name: "107 Certified",
     url: "107certified.me",
     category: "Professional",
     desc: "FAA drone certification resources and training portal.",
+    image: "/sites/107certified/hero.png",
   },
 ];
 
@@ -774,13 +800,33 @@ export default function Home() {
                   {...((project as { href?: string }).href ? {} : { target: "_blank", rel: "noopener noreferrer" })}
                   className="block group"
                 >
-                  <Card className="card-shine group h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-cream/30">
-                    {/* Placeholder visual for the card top */}
-                    <div className="h-36 bg-gradient-to-br from-brg/5 to-brg/10 rounded-t-lg flex items-center justify-center border-b border-warm-gray/30">
-                      <div className="flex flex-col items-center gap-2">
-                        <Globe className="h-8 w-8 text-brg/20 group-hover:text-brg/40 transition-colors" />
-                        <span className="text-xs text-brg/30 font-medium">{project.url}</span>
-                      </div>
+                  <Card className="card-shine group h-full border-warm-gray/50 hover:border-brg/30 transition-all duration-300 hover:shadow-xl hover:scale-[1.02] bg-cream/30 overflow-hidden">
+                    <div
+                      className="h-40 rounded-t-lg flex items-center justify-center border-b border-warm-gray/30 relative overflow-hidden"
+                      style={(project as { image?: string }).image ? {
+                        backgroundImage: `url(${(project as { image?: string }).image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      } : {
+                        background: "linear-gradient(135deg, rgba(0,66,37,0.05), rgba(0,66,37,0.1))",
+                      }}
+                    >
+                      {(project as { image?: string }).image && (
+                        <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
+                      )}
+                      {(project as { logo?: string }).logo ? (
+                        <img
+                          src={(project as { logo?: string }).logo}
+                          alt={`${project.name} logo`}
+                          className="relative z-10 max-h-16 max-w-[140px] object-contain drop-shadow-lg"
+                          style={{ filter: (project as { image?: string }).image ? "brightness(1.1)" : "none" }}
+                        />
+                      ) : (
+                        <div className="relative z-10 flex flex-col items-center gap-2">
+                          <Globe className="h-8 w-8 text-white/70 group-hover:text-white/90 transition-colors drop-shadow" style={{ color: (project as { image?: string }).image ? undefined : "rgba(0,66,37,0.2)" }} />
+                          <span className="text-xs font-medium drop-shadow" style={{ color: (project as { image?: string }).image ? "rgba(255,255,255,0.7)" : "rgba(0,66,37,0.3)" }}>{project.url}</span>
+                        </div>
+                      )}
                     </div>
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between mb-3">
