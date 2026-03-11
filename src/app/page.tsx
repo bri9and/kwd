@@ -79,46 +79,46 @@ const portfolio = [
     desc: "Full course website with tee time integration and membership portal.",
   },
   {
-    name: "Kowalski & Sons Plumbing",
-    url: "kowalskiplumbing.com",
-    href: "/sites/kowalski-sons-plumbing",
+    name: "Cirigliano Plumbing",
+    url: "ciriglianoplumbingllc.com",
+    href: "/sites/cirigliano-plumbing",
     category: "Plumbing",
-    desc: "Family-owned plumbing since 1974. Emergency service, drain cleaning, and bathroom remodeling across Allegheny County.",
+    desc: "Family-owned South Hills plumber. 24/7 emergency service, trenchless sewer repair, and honest pricing — no middleman.",
   },
   {
-    name: "Steel City Electric Co.",
-    url: "steelcityelectric.com",
-    href: "/sites/steel-city-electric",
+    name: "Nicholas Electric Co.",
+    url: "nicholaselectric.com",
+    href: "/sites/nicholas-electric",
     category: "Electrical",
-    desc: "Licensed electrical contractors. Residential wiring, EV chargers, generators, and commercial buildouts.",
+    desc: "Old-home electrical specialists since 1978. Knob & tube rewiring, EV chargers, and 24/7 emergency service. BBB A+, zero complaints.",
   },
   {
-    name: "Ridgeline Roofing & Exteriors",
-    url: "ridgelineroofing.com",
-    href: "/sites/ridgeline-roofing",
+    name: "Zeke & Son Roofing",
+    url: "zekeandsonroofing.com",
+    href: "/sites/zeke-son-roofing",
     category: "Roofing",
-    desc: "GAF Master Elite certified. Shingle and metal roofing, storm damage repair, siding and gutters.",
+    desc: "Three generations since 1949. Shingle, flat, and slate roofing. 2018 Post-Gazette Fan Favorites 1st Place. BBB A+.",
   },
   {
-    name: "Mon Valley Pest Solutions",
-    url: "monvalleypest.com",
-    href: "/sites/mon-valley-pest",
+    name: "Patriot Pest Control",
+    url: "patriotpestcontrol.net",
+    href: "/sites/patriot-pest-control",
     category: "Pest Control",
-    desc: "Eco-friendly pest control for the Mon Valley and South Hills. Termites, rodents, mosquitoes, and wildlife.",
+    desc: "Family-owned since 1995. Termites, bed bugs, rodents, and humane wildlife removal. VA/FHA mortgage inspections. BBB A+.",
   },
   {
-    name: "Confluence Golf Club",
-    url: "confluencegolfclub.com",
-    href: "/sites/confluence-golf-club",
+    name: "Grand View Golf Club",
+    url: "pittsburghgolf.com",
+    href: "/sites/grand-view-golf",
     category: "Golf Course",
-    desc: "Semi-private 18-hole course in Moon Township. Tee times, memberships, events, and a full-service clubhouse.",
+    desc: "\"The Monster on the Mon.\" Public 18-hole course with skyline views, cliff drops, and on-site Italian steakhouse.",
   },
   {
-    name: "Iron City Martial Arts",
-    url: "ironcitymartialarts.com",
-    href: "/sites/iron-city-martial-arts",
+    name: "Caliguri's Academy of Martial Arts",
+    url: "academyofmartialarts.org",
+    href: "/sites/caliguris-martial-arts",
     category: "Martial Arts",
-    desc: "BJJ, Muay Thai, and boxing in Lawrenceville. Kids and adult programs with first week free.",
+    desc: "Birthplace of MMA in America. Grand Master Frank Caliguri, 10th-degree black belt. Training champions since 1971.",
   },
   {
     name: "Three Rivers Pickleball Club",
@@ -128,25 +128,25 @@ const portfolio = [
     desc: "12 indoor courts, pro shop, and craft beer lounge. Open play, leagues, and tournaments in Robinson Township.",
   },
   {
-    name: "Allegheny Heritage Homes",
-    url: "alleghenyheritagehomes.com",
-    href: "/sites/allegheny-heritage-homes",
+    name: "D'n A Custom Home Builders",
+    url: "dnaconstructioninc.com",
+    href: "/sites/dna-custom-homes",
     category: "Home Builder",
-    desc: "Custom homes on your lot. In-house architect, energy-efficient construction, and fixed-price contracts.",
+    desc: "BuildZoom top 15%. Fully custom homes, owner-builder program, and design-build under one roof. BBB A+.",
   },
   {
-    name: "Fort Pitt Property Group",
-    url: "fortpittproperty.com",
-    href: "/sites/fort-pitt-property",
+    name: "John C.R. Kelly Realty",
+    url: "jcrkelly.com",
+    href: "/sites/kelly-realty",
     category: "Property Mgmt",
-    desc: "Full-service property management. 600+ units, 98% occupancy. Tenant placement, maintenance, and reporting.",
+    desc: "Multi-generational property management since 1960. 50+ active listings, in-house maintenance, certified appraiser. BBB A+.",
   },
   {
-    name: "Belmont Interior Design Studio",
-    url: "belmontdesignstudio.com",
-    href: "/sites/belmont-interior-design",
+    name: "Inspirational Designs",
+    url: "inspirationaldesignspgh.com",
+    href: "/sites/inspirational-designs",
     category: "Interior Design",
-    desc: "Boutique residential design in Shadyside. Kitchens, living spaces, and whole-home renovations with Pittsburgh character.",
+    desc: "Kitchen & bath design specialist in East Liberty. 84+ projects, VIP styling experience. \"We are an experience.\" BBB A+.",
   },
   {
     name: "My Family Memory",
@@ -183,26 +183,26 @@ const portfolio = [
 const processSteps = [
   {
     step: "01",
-    title: "Discovery",
-    desc: "We talk about your business, your goals, and what you need. No jargon, no pressure — just an honest conversation.",
+    title: "Tell Us What You Want",
+    desc: "Send us your idea, your existing site, or just a rough outline. We keep it simple and fast — no drawn-out discovery meetings. You talk, we listen, and we get moving.",
     icon: Users,
   },
   {
     step: "02",
-    title: "Design",
-    desc: "You get a custom design mockup to review. We revise until it's exactly right. No compromises.",
+    title: "We Design It",
+    desc: "Our team puts together a custom mockup based on your input. You review it, we refine it. A reasonable round of revisions is included — we want it right, not endless.",
     icon: Paintbrush,
   },
   {
     step: "03",
-    title: "Build",
-    desc: "Hand-coded from scratch using modern technology. Fast, secure, and built to last for years.",
+    title: "We Build It",
+    desc: "Our team starts building your site from scratch — hand-coded, modern tech, fast and secure. No templates, no page builders, no shortcuts.",
     icon: Code2,
   },
   {
     step: "04",
     title: "Launch & Support",
-    desc: "We deploy your site, hand over the code, and offer ongoing support. You own everything.",
+    desc: "We deploy your site, hand over the complete source code, and provide ongoing support. You own everything — no lock-in, no monthly platform fees.",
     icon: Zap,
   },
 ];
@@ -846,14 +846,13 @@ export default function Home() {
               variants={fadeUp}
               className="font-serif text-4xl md:text-5xl font-bold"
             >
-              Simple, transparent process.
+              How It Works
             </motion.h2>
             <motion.p
               variants={fadeUp}
               className="text-cream/50 mt-4 max-w-xl mx-auto"
             >
-              No surprises, no runaround. Here&apos;s exactly how we work together
-              from start to finish.
+              Simple, fast, no runaround. Tell us what you need and we build it.
             </motion.p>
           </motion.div>
 
