@@ -235,9 +235,9 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: 16, suffix: "+", label: "Projects Delivered" },
+  { value: 100, suffix: "+", label: "Projects Delivered" },
   { value: 100, suffix: "%", label: "Customer Satisfaction" },
-  { value: 5, suffix: "+", label: "Years Experience" },
+  { value: 25, suffix: "+", label: "Years Experience" },
 ];
 
 const faqs = [
@@ -282,17 +282,15 @@ const industries = [
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [hasAnimated, setHasAnimated] = useState(false);
-  const [displayValue, setDisplayValue] = useState(value);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [displayValue, setDisplayValue] = useState(0);
 
   useEffect(() => {
-    if (!isInView || hasAnimated) return;
-    setHasAnimated(true);
-    setDisplayValue(0);
+    if (!isInView) return;
     let start = 0;
-    const duration = 2000;
-    const increment = value / (duration / 16);
+    const duration = 1500;
+    const steps = duration / 16;
+    const increment = value / steps;
     const timer = setInterval(() => {
       start += increment;
       if (start >= value) {
@@ -303,7 +301,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
       }
     }, 16);
     return () => clearInterval(timer);
-  }, [isInView, value, hasAnimated]);
+  }, [isInView, value]);
 
   return (
     <span ref={ref}>
