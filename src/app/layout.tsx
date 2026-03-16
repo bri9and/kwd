@@ -108,6 +108,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.variable} antialiased`}>
         <LayoutShell>{children}</LayoutShell>
+        <span style={{ position: 'fixed', top: 8, right: 12, fontSize: 11, color: 'rgba(255,255,255,0.3)', zIndex: 9999, fontFamily: 'monospace', pointerEvents: 'none' }}>v2.0</span>
       </body>
     </html>
   );
