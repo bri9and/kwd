@@ -1,5 +1,17 @@
 import { NextResponse } from "next/server";
 
+const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+
+/** HTML-escape user input to prevent XSS in email templates */
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export async function POST(request: Request) {
   const body = await request.json();
   const { name, email, phone, business, website, services, message } = body;
@@ -11,19 +23,25 @@ export async function POST(request: Request) {
     );
   }
 
+  if (typeof email !== "string" || !EMAIL_REGEX.test(email)) {
+    return NextResponse.json(
+      { error: "A valid email address is required." },
+      { status: 400 }
+    );
+  }
+
   const submission = {
-    name,
-    email,
-    phone: phone || "Not provided",
-    business: business || "Not provided",
-    website: website || "Not provided",
-    services: (services && services.length > 0) ? services.join(", ") : "Not specified",
-    message,
+    name: escapeHtml(String(name)),
+    email: escapeHtml(String(email)),
+    phone: escapeHtml(String(phone || "Not provided")),
+    business: escapeHtml(String(business || "Not provided")),
+    website: escapeHtml(String(website || "Not provided")),
+    services: (services && Array.isArray(services) && services.length > 0)
+      ? escapeHtml(services.map(String).join(", "))
+      : "Not specified",
+    message: escapeHtml(String(message)),
     timestamp: new Date().toISOString(),
   };
-
-  // Log submission
-  console.log("Contact form submission:", submission);
 
   // Send email via Resend (if configured)
   if (process.env.RESEND_API_KEY) {
@@ -35,8 +53,8 @@ export async function POST(request: Request) {
       await resend.emails.send({
         from: "Kiely Web Design <contact@kielywebdesign.com>",
         to: "hello@kielywebdesign.com",
-        replyTo: email,
-        subject: `New inquiry from ${name}${business ? ` (${business})` : ""}`,
+        replyTo: email, // raw validated email for replyTo
+        subject: `New inquiry from ${submission.name}${submission.business !== "Not provided" ? ` (${submission.business})` : ""}`,
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #00311b; padding: 24px; text-align: center;">
@@ -46,32 +64,32 @@ export async function POST(request: Request) {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b; width: 120px;">Name</td>
-                  <td style="padding: 8px 0;">${name}</td>
+                  <td style="padding: 8px 0;">${submission.name}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Email</td>
-                  <td style="padding: 8px 0;"><a href="mailto:${email}" style="color: #c85a1a;">${email}</a></td>
+                  <td style="padding: 8px 0;"><a href="mailto:${submission.email}" style="color: #c85a1a;">${submission.email}</a></td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Phone</td>
-                  <td style="padding: 8px 0;">${phone || "Not provided"}</td>
+                  <td style="padding: 8px 0;">${submission.phone}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Business</td>
-                  <td style="padding: 8px 0;">${business || "Not provided"}</td>
+                  <td style="padding: 8px 0;">${submission.business}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Website</td>
-                  <td style="padding: 8px 0;">${website || "Not provided"}</td>
+                  <td style="padding: 8px 0;">${submission.website}</td>
                 </tr>
                 <tr>
                   <td style="padding: 8px 0; font-weight: bold; color: #00311b;">Interested In</td>
-                  <td style="padding: 8px 0;">${(services && services.length > 0) ? services.join(", ") : "Not specified"}</td>
+                  <td style="padding: 8px 0;">${submission.services}</td>
                 </tr>
               </table>
               <div style="margin-top: 16px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e8e4df;">
                 <p style="font-weight: bold; color: #00311b; margin: 0 0 8px;">Message</p>
-                <p style="margin: 0; line-height: 1.6; color: #333;">${message.replace(/\n/g, "<br>")}</p>
+                <p style="margin: 0; line-height: 1.6; color: #333;">${submission.message.replace(/\n/g, "<br>")}</p>
               </div>
               <p style="margin-top: 16px; font-size: 12px; color: #888;">
                 Received ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} ET
@@ -87,8 +105,8 @@ export async function POST(request: Request) {
       // Auto-reply to the person who submitted
       await resend.emails.send({
         from: "Kiely Web Design <contact@kielywebdesign.com>",
-        to: email,
-        subject: `Thanks for reaching out, ${name.split(" ")[0]}!`,
+        to: email, // raw validated email
+        subject: `Thanks for reaching out, ${submission.name.split(" ")[0]}!`,
         html: `
           <div style="font-family: Georgia, serif; max-width: 600px; margin: 0 auto;">
             <div style="background: #00311b; padding: 24px; text-align: center;">
@@ -97,7 +115,7 @@ export async function POST(request: Request) {
             </div>
             <div style="padding: 24px; background: #fafaf5;">
               <p style="color: #00311b; font-size: 18px; font-weight: bold; margin: 0 0 16px;">
-                Hi ${name.split(" ")[0]},
+                Hi ${submission.name.split(" ")[0]},
               </p>
               <p style="line-height: 1.6; color: #333; margin: 0 0 16px;">
                 Thanks for reaching out! I received your message and will get back to you within 24 hours with some initial thoughts.
@@ -120,8 +138,7 @@ export async function POST(request: Request) {
           </div>
         `,
       });
-    } catch (error) {
-      console.error("Resend email error:", error);
+    } catch {
       // Don't fail the request if email fails
     }
   }
